@@ -1,0 +1,190 @@
+/*
+ *
+ * Copyright(c) 2010,2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/webkit/WKCMemoryEventHandler.h
+*/
+/*@{*/
+/**
+@class WKC::WKCMemoryEventHandler 
+@brief メモリ関連のイベントを通知するクラス
+*/
+/**
+@enum AllocationReason 
+@brief メモリ確保の理由
+*/
+/**
+@var WKC::WKCMemoryEventHandler::Image 
+@brief 画像のメモリ確保
+*/
+/**
+@var WKC::WKCMemoryEventHandler::AnimeGif 
+@brief アニメーションGIF画像のメモリ確保
+*/
+/**
+@var WKC::WKCMemoryEventHandler::ImageSharedBuffer 
+@brief 画像のバッファ領域の拡張による確保
+*/
+/**
+@var WKC::WKCMemoryEventHandler::JavaScript 
+@brief JavaScriptテキストのデコードのための確保
+*/
+/**
+@var WKC::WKCMemoryEventHandler::JavaScriptHeap 
+@brief JavaScript用ヒープ領域の拡張による確保
+*/
+/**
+@enum BusyArea
+@breif 実行中の機能を表す値。
+*/
+/**
+@var WKC::WKCMemoryEventHandler::None 
+@brief 通常の処理中
+*/
+/**
+@var WKC::WKCMemoryEventHandler::ClearCache
+@brief キャッシュ削除処理中
+*/
+
+/**
+@var WKC::WKCMemoryEventHandler::AllowDecode
+@brief デコードを許可
+*/
+/**
+@var WKC::WKCMemoryEventHandler::ScaleDecode
+@brief 縮小デコードを行う
+*/
+/**
+@var WKC::WKCMemoryEventHandler::ReduceDecode
+@brief 減色デコードを行う
+*/
+/**
+@var WKC::WKCMemoryEventHandler::ReduceAndScaleDecode
+@brief 縮小かつ減色デコードを行う
+*/
+/**
+@var WKC::WKCMemoryEventHandler::DenyDecode
+@brief デコードを行わない
+*/
+/**
+@fn  virtual void* WKC::WKCMemoryEventHandler::notifyNeedMemoryReduction(unsigned int in_request_size, BusyArea busy_area)
+@brief メモリ確保の失敗のため、不急のメモリを開放するよう要請。
+@param "unsigned int request_size" 要求されたメモリサイズ
+@param "BusyArea busy_area" 実行中の機能
+@details
+現状ではまだ未サポート。
+*/
+/**
+@fn  virtual void* WKC::WKCMemoryEventHandler::notifyMemoryExhaust(unsigned int request_size, unsigned int& out_allocated_size) 
+@brief メモリ確保の失敗の通知。
+@param "unsigned int request_size" 要求されたメモリサイズ
+@param "unsigned int& out_allocated_size" 確保したメモリサイズへの参照
+@retval void* 確保したメモリへのポインタ
+*/
+/**
+@fn  virtual int WKC::WKCMemoryEventHandler::checkImageDecodeMode(int w, int h, float& scale_x, float& scale_y) 
+@brief 画像のデコード方法の判別。
+@param "int w" 画像の横幅
+@param "int h" 画像の高さ
+@param "float& scale_x" X方向の縮小率への参照（0 < scale_x <= 1.f）
+@param "float& scale_y" Y方向の縮小率への参照（0 < scale_y <= 1.f）
+@retval WKC::WKCMemoryEventHandler::AllowDecode デコードを許可
+@retval WKC::WKCMemoryEventHandler::ScaleDecode scale_x, scale_yの倍率での縮小デコード
+@retval WKC::WKCMemoryEventHandler::ReduceDecode 8bppでデコード 
+@retval WKC::WKCMemoryEventHandler::ReduceAndScaleDecode 8bppかつscale_x, scale_yの倍率での縮小デコード 
+@retval WKC::WKCMemoryEventHandler::DenyDecode デコードしない
+@details
+WKC::WKCMemoryEventHandler::ScaleDecodeを戻り値に指定した場合は、scale_x, scale_yに縮小デコードの閾値を設定すること。
+@attention
+WKC::WKCMemoryEventHandler::AllowDecodeが戻り値に指定された場合も、 WKC::WKCWebView::setMaxNumberOfPixelsForDownsampling()  で設定されたサイズを超える場合、縮小デコードが行われる。@n
+縮小後の高さや幅が1以下の場合は正常に表示されないので注意すること。
+
+*/
+/**
+@fn  virtual void WKC::WKCMemoryEventHandler::notifyMemoryAllocationError(unsigned int request_size, AllocationReason reason)
+@brief メモリ確保の失敗の通知
+@param "unsigned int request_size" 要求されたメモリサイズ
+@param "AllocationReason reason" メモリ確保の理由 @n
+- WKC::WKCMemoryEventHandler::Image
+- WKC::WKCMemoryEventHandler::AnimeGif
+- WKC::WKCMemoryEventHandler::JavaScript
+- WKC::WKCMemoryEventHandler::JavaScriptHeap
+@return なし
+@details
+メモリ確保に失敗したときに通知される。
+*/
+
+/**
+@fn  virtual void WKC::WKCMemoryEventHandler::notifyCrash(const char* file, int line, const char* function, const char* assertion) 
+@brief 強制終了の通知。
+@param "const char* file" （アサーション失敗時）成立しなかったアサーションのあるファイルのパス（C文字列）
+@param "int line" （アサーション失敗時）成立しなかったアサーションのある行番号
+@param "const char* function" （アサーション失敗時）成立しなかったアサーションの関数（ASCIIのみのC文字列）
+@param "const char* assertion" （アサーション失敗時）成立しなかった条件式（ASCIIのみのC文字列）
+@return なし
+@details
+ブラウザエンジンで強制終了が発生した場合に通知される。@n
+アサーション失敗以外の理由での強制終了の場合、file, line, function, assertion には 0 がセットされる。
+@attention
+アサーション失敗時、 file にはビルドした環境のファイルパスが指定される。@n
+そのファイルパスに日本語などが含まれる場合は、プラットフォーム依存の文字コードとなるが、ファイルパスにASCIIのみしか含まれない場合は file はASCIIのみの文字列となる。
+*/
+/**
+@fn  virtual void WKC::WKCMemoryEventHandler::notifyStackOverflow(bool need_restart, unsigned int stack_size, unsigned int consumption, unsigned int margin, void* stack_top, void* stack_base, void* current_stack_top, const char* file, int line, const char* function)
+@brief スタックオーバーフローの通知。
+@param "bool need_restart" 再起動が必要かどうかの通知
+- true  再起動が必要。
+- false 再起動は不要。
+@param "unsigned int stack_size" スタックサイズ
+@param "unsigned int consumption" スタック消費量
+@param "unsigned int margin" マージン
+@param "void* stack_top" スタック領域の先頭のアドレス
+@param "void* stack_base" スタック領域の末尾のアドレス
+@param "void* current_stack_top" 現在のスタックトップのアドレス
+@param "const char* file" スタックオーバーフローの発生した処理のあるファイルのパス（C文字列）
+@param "int line" スタックオーバーフローの発生した処理のある行番号
+@param "const char* function" スタックオーバーフローの発生した処理のある関数（ASCIIのみのC文字列）
+@return なし
+@details
+ブラウザエンジンでスタックオーバーフローが発生しそうになった場合に通知される。@n
+基準となるスタックサイズは WKC::WKCWebKitSetStackSize() で設定されたものが使用される。@n
+スタックサイズからスタック消費量を減算した値がマージンよりも少なくなったタイミングで呼び出される。マージンはブラウザエンジン内部の各処理に対して適切な値が適用される。
+@attention
+need_restart が true で通知されるケースは、HTMLコンテンツが非常の複雑だった場合（要素のネスト数が非常に多いなど）である。
+このケースではメモリ不足時と同様、基本的にエンジン内部で処理の継続が不可能になるため、再起動が必要となる。@n
+need_restart が false で通知されるケースは、JavaScriptの動作中にStackが足りなくなった場合である。
+このケースではJavaScriptを止めれば動作自体は継続可能なため、アプリケーション側で再起動処理を行わない限りエンジンの動作は継続するが、アプリケーション側の判断で再起動してもよい。@n
+file にはビルドした環境のファイルパスが指定される。@n
+そのファイルパスに日本語などが含まれる場合は、プラットフォーム依存の文字コードとなるが、ファイルパスにASCIIのみしか含まれない場合は file はASCIIのみの文字列となる。
+*/
+/**
+@fn  virtual bool WKC::WKCMemoryEventHandler::checkMemoryAvailability(unsigned int request_size, bool in_forimage)
+@brief メモリ確保の可否の確認。
+@param "unsigned int request_size" 確保するメモリの要求サイズ
+@param "bool in_forimage" 要求の種類 @n
+- !false 画像のメモリ確保
+- false 画像以外のメモリ確保
+@retval !false 確保可
+@retval false 確保不可
+*/
+/**
+@fn  virtual bool WKC::WKCMemoryEventHandler::checkMemoryAllocatable(unsigned int request_size, AllocationReason reason)
+@brief メモリ確保の可否の確認。
+@param "unsigned int request_size" 確保するメモリの要求サイズ
+@param "AllocationReason reason" メモリ確保の理由 @n
+- WKC::WKCMemoryEventHandler::Image
+- WKC::WKCMemoryEventHandler::AnimeGif
+- WKC::WKCMemoryEventHandler::JavaScript
+- WKC::WKCMemoryEventHandler::ImageSharedBuffer
+@retval !false 確保可
+@retval false 確保不可
+@details
+戻り値にfalseを指定した場合。メモリ確保を行わず処理を続行する。
+@attention
+reason に WKC::WKCMemoryEventHandler::AnimeGifが指定された場合は、キャッシュクリアを行うことができない。@n
+それ以外の値の場合は、キャッシュクリアを行うことができる。
+*/
+/*@}*/

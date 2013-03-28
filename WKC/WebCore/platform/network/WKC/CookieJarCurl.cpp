@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2011 ACCESS CO., LTD. All rights reserved.
+ * Copyright (c) 2010-2012 ACCESS CO., LTD. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -46,10 +46,20 @@ static String optimize_url(const KURL& url)
 
 void setCookies(Document* document, const KURL& url, const String& value)
 {
-    String firstparty_host = url.host();
+    String firstparty_host;
     String cookie_domain;
 
-    if (!document->frame())
+    if (document) {
+        Document* top = document->topDocument();
+        if (top) {
+            firstparty_host = top->url().host();
+        }
+    }
+    if (firstparty_host.isEmpty()) {
+        firstparty_host = url.host();
+    }
+
+    if (!document || !document->frame())
         return;
 
     if (-1 != value.find("domain=", 0, false)) {
@@ -66,7 +76,7 @@ void setCookies(Document* document, const KURL& url, const String& value)
         }
     }
     else
-        cookie_domain = "." + firstparty_host;
+        cookie_domain = "." + url.host();
 
     if (!document->frame()->loader()->client()->dispatchWillAcceptCookie(firstparty_host, cookie_domain))
         return;

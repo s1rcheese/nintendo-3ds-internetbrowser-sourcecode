@@ -1,0 +1,62 @@
+/*
+ *
+ * Copyright(c) 2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/helpers/DropDownListClientIf.h
+*/
+/*@{*/
+/**
+@class WKC::DropDownListClientIf 
+@brief ドロップダウンリストのイベントを通知するクラス。
+*/
+/**
+@fn  static DropDownListClientIf* WKC::DropDownListClientIf::create(WKCWebViewPrivate* view)
+@brief ドロップダウンリストクライアントの生成。
+@param "WKCWebViewPrivate* view" WKCWebViewPrivateへのポインタ
+@retval DropDownListClientIf* ドロップダウンリストクライアントへのポインタ
+*/
+/**
+@fn  WKC::DropDownListClientIf::~DropDownListClientIf()
+@brief デストラクタ。
+*/
+/**
+@fn  virtual void WKC::DropDownListClientIf::show(const WKCRect& r, WKC::FrameView* view, int index, WKC::PopupMenuClient *client)
+@brief ドロップダウンリストの表示の通知。
+@param "const WKCRect& r" ドロップダウンリストの座標
+@param "WKC::FrameView* view" FrameViewへのポインタ
+@param "int index" 選択されている項目のインデックス
+@param "WKC::PopupMenuClient *client" PopupMenuClientへのポインタ
+@return なし
+@details
+ドロップダウンリスト生成に必要な情報は、::WKC::PopupMenuClientを通して取得する。@n
+*/
+/**
+@fn  virtual void WKC::DropDownListClientIf::hide(WKC::PopupMenuClient *client)
+@brief ドロップダウンリストの非表示の通知
+@param "WKC::PopupMenuClient *client" PopupMenuClientへのポインタ
+@return なし
+@details
+ドロップダウンリスト表示中に、ページ遷移やDOM操作によりselect要素が削除された場合に通知される。@n
+*/
+/**
+@fn  virtual void WKC::DropDownListClientIf::updateFromElement(WKC::PopupMenuClient *client)
+@brief ドロップダウンリストの状態変更の通知。
+@param "WKC::PopupMenuClient *client" PopupMenuClientへのポインタ
+@return なし
+@details
+ドロップダウンリスト表示中に、DOM操作によりselect要素の内容が変更された場合に通知される。@n
+*/
+/**
+@fn  WKC::DropDownListClientIf::DropDownListClientIf(WKCWebViewPrivate* view)
+@brief (TBD) implement description
+@param view (TBD) implement description
+*/
+/**
+@fn  bool WKC::DropDownListClientIf::construct()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/*@}*/

@@ -1,0 +1,104 @@
+/*
+ *
+ * Copyright(c) 2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/helpers/ContextMenuClientIf.h
+*/
+/*@{*/
+/**
+@class WKC::ContextMenuClientIf
+@brief コンテキストメニューのイベントを通知するクラス。
+*/
+/**
+@fn  static ContextMenuClientIf* WKC::ContextMenuClientIf::create(WKCWebViewPrivate* view)
+@brief コンテキストメニュークライアントの生成。
+@param "WKCWebViewPrivate* view" WKCWebViewPrivateへのポインタ
+@retval ContextMenuClientIf* コンテキストメニュークライアントへのポインタ
+*/
+/**
+@fn  WKC::ContextMenuClientIf::~ContextMenuClientIf()
+@brief デストラクタ。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::contextMenuDestroyed()
+@brief コンテキストメニューの破棄の通知。
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::PlatformMenuDescription WKC::ContextMenuClientIf::getCustomMenuFromDefaultItems(WKC::ContextMenu*)
+@brief (TBD) implement description
+@param WKC::ContextMenu* (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::contextMenuItemSelected(WKC::ContextMenuItem*, const WKC::ContextMenu*)
+@brief (TBD) implement description
+@param WKC::ContextMenuItem* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::downloadURL(const WKC::KURL& url)
+@brief (TBD) implement description
+@param url (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::searchWithGoogle(const WKC::Frame*)
+@brief (TBD) implement description
+@param WKC::Frame* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::lookUpInDictionary(WKC::Frame*)
+@brief (TBD) implement description
+@param WKC::Frame* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::speak(const WKC::String&)
+@brief (TBD) implement description
+@param WKC::String& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ContextMenuClientIf::stopSpeaking()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ContextMenuClientIf::isSpeaking()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  WKC::ContextMenuClientIf::ContextMenuClientIf(WKCWebViewPrivate* view)
+@brief (TBD) implement description
+@param view (TBD) implement description
+*/
+/**
+@fn  bool WKC::ContextMenuClientIf::construct()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/*@}*/

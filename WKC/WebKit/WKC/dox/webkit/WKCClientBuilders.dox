@@ -1,0 +1,127 @@
+/*
+ *
+ * Copyright(c) 2010,2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/webkit/WKCClientBuilders.h
+*/
+/*@{*/
+/**
+@class WKC::WKCClientBuilders 
+@brief クライアントを保持するクラス。
+*/
+/**
+@fn  virtual WKC::ChromeClientIf* WKC::WKCClientBuilders::createChromeClient(WKCWebView* view) 
+@brief クロムクライアントの生成の要求。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@retval WKC::ChromeClientIf* クロムクライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteChromeClient(WKC::ChromeClientIf* client) 
+@brief クロムクライアントの破棄の要求。
+@param "WKC::ChromeClientIf* client" クロムクライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual WKC::ContextMenuClientIf* WKC::WKCClientBuilders::createContextMenuClient(WKCWebView* view) 
+@brief コンテキストメニュークライアントの生成の要求。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@retval WKC::ContextMenuClientIf* コンテキストメニュークライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteContextMenuClient(WKC::ContextMenuClientIf* client) 
+@brief コンテキストメニュークライアントの破棄の要求。
+@param "WKC::ContextMenuClientIf* client" コンテキストメニュークライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual WKC::DragClientIf* WKC::WKCClientBuilders::createDragClient(WKCWebView* view) 
+@brief ドラッグクライアントの生成の要求。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@retval WKC::DragClientIf* ドラッグクライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteDragClient(WKC::DragClientIf* client) 
+@brief ドラッグクライアントの破棄の要求。
+@param "WKC::DragClientIf* client" ドラッグクライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual WKC::EditorClientIf* WKC::WKCClientBuilders::createEditorClient(WKCWebView* view) 
+@brief エディタークライアントの生成の要求。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@retval WKC::EditorClient エディタークライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteEditorClient(WKC::EditorClientIf* client) 
+@brief エディタークライアントの破棄の要求。
+@param "WKC::EditorClientIf* client" エディタークライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual WKC::FrameLoaderClientIf* WKC::WKCClientBuilders::createFrameLoaderClient(WKCWebFrame* frame) 
+@brief フレームローダークライアントの生成の要求。
+@param "WKCWebFrame* frame" ウェブフレームへのポインタ
+@retval WKC::FrameLoaderClientIf* フレームローダークライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteFrameLoaderClient(WKC::FrameLoaderClientIf* client) 
+@brief フレームローダークライアントの破棄の要求。
+@param "WKC::FrameLoaderClientIf* client" フレームローダークライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual WKC::InspectorClientIf* WKC::WKCClientBuilders::createInspectorClient(WKCWebView* view) 
+@brief インスペクタークライアントの生成の要求。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@retval "WKC::InspectorClientIf*" インスペクタークライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteInspectorClient(WKC::InspectorClientIf* client) 
+@brief インスペクタークライアントの破棄の要求。
+@param "WKC::InspectorClientIf* client" インスペクタークライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual WKC::DropDownListClientIf* WKC::WKCClientBuilders::createDropDownListClient(WKCWebView* view)
+@brief ドロップダウンリストクライアントの生成の要求。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@retval "WKC::DropDownListClientIf*" ドロップダウンリストクライアントへのポインタ
+@details
+(TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::WKCClientBuilders::deleteDropDownListClient(WKC::DropDownListClientIf* client)
+@brief ドロップダウンリストクライアントの破棄の要求。
+@param "WKC::DropDownListClientIf* client" ドロップダウンリストクライアントへのポインタ
+@return なし
+@details
+(TBD) implement description 
+*/
+/*@}*/

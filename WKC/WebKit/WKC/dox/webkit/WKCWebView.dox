@@ -1,0 +1,2742 @@
+﻿/*
+ *
+ * Copyright(c) 2010,2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/webkit/WKCWebView.h
+*/
+/*@{*/
+/**
+@namespace WKC
+@brief NetFrontBrowser v4.0 WKCのAPIレイヤのネームスペース。
+*/
+
+/*@{*/
+/**
+@struct WKC::FileSystemProcs_
+@brief ファイルアクセスのコールバック関数の構造体
+*/
+
+/**
+@typedef struct WKC::FileSystemProcs_ WKC::FileSystemProcs
+@brief FileSystemProcs の型定義。
+*/
+
+/*@}*/
+
+/**
+@typedef FILE* (*WKC::FileSystemProcs::fOpenProc)(const char* in_filename, const char* in_mode)
+@brief ファイルオープンのコールバック関数@n
+in_filenameで指定されたパスのファイルをin_modeで指定されたモードで開き、ファイルストリーム識別子を返す。
+*/
+/**
+@var int (*WKC::FileSystemProcs::fCloseProc)(FILE* in_stream)
+@brief ファイルクローズのコールバック関数。@n
+*/
+/**
+@var size_t (*WKC::FileSystemProcs::fReadProc)(void *out_buffer, size_t in_size, size_t in_count, FILE *in_stream)
+@brief ファイル読み込みのコールバック関数。@n
+指定されたファイルストリーム識別子から、in_countの個数のデータを読み込み、out_bufferの領域にコピーする。個々のデータはin_size分の長さを持つ。戻り値は読み書きに成功した個数となる。
+*/
+/**
+@var size_t (*WKC::FileSystemProcs::fWriteProc)(const void *in_buffer, size_t in_size, size_t in_count, FILE *in_stream)
+@brief ファイル書き込みのコールバック関数。@n
+指定されたファイルストリーム識別子へ、in_bufferの領域にある、in_countの個数のデータを書き込む。個々のデータはin_size分の長さを持つ。戻り値は読み書きに成功した個数となる。
+*/
+/**
+@var int (*WKC::FileSystemProcs::fEOFProc)(FILE *in_stream)
+@brief ファイルの終端確認のコールバック関数。@n
+指定されたファイルストリーム識別子のEOFを確認し、EOFに到達していれば0以外の数を返す。
+*/
+
+/**
+@var int (*WKC::FileSystemProcs::fStatProc)(int in_fd, struct stat *out_buf)
+@brief ファイル情報の取得のコールバック関数。@n
+指定されたファイルデスクリプタの情報を返す。
+*/
+
+/**
+@var int (*WKC::FileSystemProcs::fNoProc)(FILE *in_stream)
+@brief ファイルストリーム識別子に対応すファイルデスクリプタを返すコールバック関数。@n
+*/
+
+/**
+@struct WKC::WKCSkin_
+@brief スキンデータを格納するための構造体
+*/
+
+/**
+@typedef struct WKC::WKCSkin_ WKC::WKCSkin
+@brief WKC::WKCSkin の型定義。
+*/
+
+/**
+@enum WKC::SkinImage
+@brief スキンイメージの種別
+*/
+
+/**
+@var WKC::ESkinImageCheckboxUnchecked
+@brief チェックボックスが未チェックの状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxChecked
+@brief チェックボックスがチェックされている状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxUncheckedDisabled
+@brief チェックボックスがチェックされてなく、操作不可な状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxCheckedDisabled
+@brief チェックボックスがチェックされており、操作不可な状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxUncheckedHovered
+@brief チェックボックスがチェックされてなく、ホバー状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxCheckedHovered
+@brief チェックボックスがチェックされており、ホバー状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxUncheckedFocused
+@brief チェックボックスがチェックされてなく、フォーカスしている状態
+*/
+
+/**
+@var WKC::ESkinImageCheckboxCheckedFocused
+@brief チェックボックスがチェックされており、フォーカスしている状態
+*/
+
+/**
+@var WKC::ESkinImageRadioUnchecked
+@brief ラジオボタンがチェックされてない状態
+*/
+
+/**
+@var WKC::ESkinImageRadioChecked
+@brief ラジオボタンがチェックされている状態
+*/
+
+/**
+@var WKC::ESkinImageRadioUncheckedDisabled
+@brief ラジオボタンがチェックされてなく、操作無効な状態
+*/
+
+/**
+@var WKC::ESkinImageRadioCheckedDisabled
+@brief ラジオボタンがチェックされており、操作無効な状態
+*/
+
+/**
+@var WKC::ESkinImageRadioUncheckedHovered
+@brief ラジオボタンがチェックされてなく、ホバー状態
+*/
+
+/**
+@var WKC::ESkinImageRadioCheckedHovered
+@brief ラジオボタンがチェックされており、ホバー状態
+*/
+
+/**
+@var WKC::ESkinImageRadioUncheckedFocused
+@brief ラジオボタンがチェックされてなく、フォーカスしている状態
+*/
+
+/**
+@var WKC::ESkinImageRadioCheckedFocused
+@brief ラジオボタンがチェックされており、フォーカスしている状態
+*/
+
+/**
+@var WKC::ESkinImageButton
+@brief ボタンの通常状態
+*/
+
+/**
+@var WKC::ESkinImageButtonDisabled
+@brief ボタンの操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageButtonPressed
+@brief ボタンの押された状態
+*/
+
+/**
+@var WKC::ESkinImageButtonHovered
+@brief ボタンのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageMenuListButton
+@brief メニューリストボタンの通常状態
+*/
+
+/**
+@var WKC::ESkinImageMenuListButtonDisabled
+@brief メニューリストボタンの無効状態
+*/
+
+/**
+@var WKC::ESkinImageMenuListButtonHovered
+@brief メニューリストボタンのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageMenuListButtonFocused
+@brief メニューリストボタンにフォーカスしている状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarBackground
+@brief 垂直スクロールバー背景の通常状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarBackgroundDisabled
+@brief 垂直スクロールバー背景の操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarThumb
+@brief 垂直スクロールバーThumbの通常状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarThumbHovered
+@brief 垂直スクロールバーThumbのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarUp
+@brief 垂直スクロールバーUpのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarUpDisabled
+@brief 垂直スクロールバーUpの操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarUpHovered
+@brief 垂直スクロールバーUpのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarDown
+@brief 垂直スクロールバーDownの通常状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarDownDisabled
+@brief 垂直スクロールバーDownの操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageVScrollbarDownHovered
+@brief 垂直スクロールバーDownのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarBackground
+@brief 水平スクロールバー背景の通常状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarBackgroundDisabled
+@brief 水平スクロールバー背景の操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarThumb
+@brief 水平スクロールバーThumbの通常状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarThumbHovered
+@brief 水平スクロールバーThumbのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarLeft
+@brief 水平スクロールバーLeftの通常状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarLeftDisabled
+@brief 水平スクロールバーLeftの操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarLeftHovered
+@brief 水平スクロールバーLeftのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarRight
+@brief 水平スクロールバーRightの通常状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarRightDisabled
+@brief 水平スクロールバーRightの操作無効状態
+*/
+
+/**
+@var WKC::ESkinImageHScrollbarRightHovered
+@brief 水平スクロールバーRightのホバー状態
+*/
+
+/**
+@var WKC::ESkinImageScrollbarCrossCorner
+@brief スクロールバーのクロスコーナーの通常状態
+*/
+
+/**
+@var WKC::ESkinImageScrollbarCrossCornerDisabled
+@brief スクロールバーのクロスコーナーの操作無効状態
+*/
+
+/**
+@var WKC::ESkinImages
+@brief スクロールバーの種類、状態の総数
+*/
+
+/**
+@enum WKC::SkinColor
+@brief スキンカラーの種別
+*/
+
+/**
+@var WKC::ESkinColorActiveBorder
+@brief ActiveBorder色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorActiveCaption
+@brief ActiveCaption色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorAppWorkSpace
+@brief AppWorkspace色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorBackground
+@brief Background色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorButtonFace
+@brief ButtonFace色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorButtonHighlight
+@brief ButtonHighlight色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorButtonShadow
+@brief ButtonShadow色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorButtonText
+@brief ButtonText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorCaptionText
+@brief CaptionText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorGrayYext
+@brief GrayText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorHighlight
+@brief Highlight色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorHighlightText
+@brief HighlightText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorInactiveBorder
+@brief 
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorInactiveCaption
+@brief InactiveBorde色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorInactiveCaptionText
+@brief InactiveCaptionText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorInfoBackground
+@brief InfoBackground色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorInfoText
+@brief InfoText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorMenu
+@brief Menu色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorMenuText
+@brief MenuText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorScrollbar
+@brief Scrollbar色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorText
+@brief Text色
+*/
+
+/**
+@var WKC::ESkinColorThreeDDarkShadow
+@brief ThreeDDarkShadow色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorThreeDFace
+@brief ThreeDFace色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorThreeDHighlight
+@brief ThreeDHighlight色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorThreeDLightShadow
+@brief ThreeDLightShadow色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorThreeDShadow
+@brief ThreeDShadow色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorWindow
+@brief Window色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorWindowFrame
+@brief WindowFrameWindowFrame
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorWindowText
+@brief WindowText色
+@details
+システムカラーの一つ。システムカラーについては @ref reference の『CSS Color Module Level 3』を参照のこと。
+*/
+
+/**
+@var WKC::ESkinColorActiveSelectionForeground
+@brief アクティブな選択文字の前景色
+*/
+
+/**
+@var WKC::ESkinColorActiveSelectionBackground
+@brief アクティブな選択文字の背景色
+*/
+
+/**
+@var WKC::ESkinColorInactiveSelectionForeground
+@brief 非アクティブな選択文字の前景色
+*/
+
+/**
+@var WKC::ESkinColorInactiveSelectionBackground
+@brief 非アクティブな選択文字の背景色
+*/
+
+/**
+@var WKC::ESkinColorFocusRing
+@brief フォーカス枠の色。
+*/
+
+/**
+@var WKC::ESkinColorTextfieldBorder
+@brief テキストフィールド、テキストエリア、リストボックス描画時のボーダー色
+*/
+
+/**
+@var WKC::ESkinColorTextfieldBackground
+@brief テキストフィールド、テキストエリア、リストボックス描画時の背景色（未サポート）
+*/
+
+/**
+@var WKC::ESkinColorTextfieldBackgroundDisabled
+@brief テキストフィールド、テキストエリア、リストボックス描画時の、disabled状態のときの背景色 
+*/
+
+/**
+@var WKC::ESkinColors
+@brief スキンカラーの総数
+*/
+
+/**
+@enum WKC::SystemFontType
+@brief システムフォントの種別
+*/
+
+
+/**
+@var WKC::ESystemFontTypeCaption
+@brief font: caption; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeIcon
+@brief font: icon; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeMenu
+@brief font: menu; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeMessageBox
+@brief font: message-box; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeSmallCaption
+@brief font: small-caption; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeWebkitMiniControl
+@brief font: -webkit-mini-control; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeWebkitSmallControl
+@brief font: -webkit-small-control; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeWebkitControl
+@brief font: -webkit-control; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypeStatusBar
+@brief font: status-bar; 指定時に使用されるフォント
+*/
+
+/**
+@var WKC::ESystemFontTypes
+@brief システムフォント種別の総数
+*/
+
+/**
+@var WKC::WKCSkinImage WKC::WKCSkin::fImages [ WKC::ESkinImages ]
+@brief Skin画像データを格納するための構造体の配列
+@details
+配列は WKC::ESkinImages のサイズ。
+*/
+
+/**
+@var unsigned int WKC::WKCSkin::fColors [ WKC::ESkinColors ]
+@brief Skin画像データを格納するための構造体の配列
+@details
+配列は WKC::ESkinColors のサイズ。
+*/
+
+/**
+@var float WKC::WKCSkin::fSystemFontSize [ WKC::ESystemFontTypes ]
+@brief システムフォントサイズを格納するための配列
+@details
+配列は WKC::ESystemFontTypes のサイズ。
+*/
+
+/**
+@struct WKC::WKCSkinImage_
+@brief スキン画像データを格納するための構造体。
+*/
+
+/**
+@typedef WKC::WKCSkinImage_ WKC::WKCSkinImage
+@brief WKC::WKCSkinImage の型定義。
+*/
+
+/**
+@var WKC::WKCSize WKC::WKCSkinImage::fSize
+@brief スキン画像のサイズ。
+*/
+
+/**
+@var WKC::WKCPoint WKC::WKCSkinImage::fPoints[4]
+@brief スキン画像内の4点を指定するための座標データの配列。
+*/
+
+/**
+@var void* WKC::WKCSkinImage::fBitmap
+@brief スキン画像の画像データへのポインタ。
+*/
+
+/**
+@struct WKC::SystemStrings_
+@brief システム文字列データデータを格納するための構造体。
+*/
+
+/**
+@typedef WKC::SystemStrings_ WKC::SystemStrings
+@brief WKC::SystemStrings の型定義。
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fNavigatorPlatform
+@brief JavaScriptのNavigatorオブジェクトのplatformプロパティ
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fNavigatorProduct
+@brief JavaScriptのNavigatorオブジェクトのproductプロパティ
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fNavigatorProductSub
+@brief JavaScriptのNavigatorオブジェクトのproductSubプロパティ
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fNavigatorVendor
+@brief JavaScriptのNavigatorオブジェクトのvendorプロパティ
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fNavigatorVendorSub
+@brief JavaScriptのNavigatorオブジェクトのvendorSubプロパティ
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fLanguage
+@brief システムの言語
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fButtonLabelSubmit
+@brief type="submit"が指定されたinput要素のボタン文字列
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fButtonLabelReset
+@brief type="reset"が指定されたinput要素のボタン文字列
+*/
+
+/**
+@var const unsigned short* WKC::SystemStrings::fButtonLabelFile
+@brief type="file"が指定されたinput要素のボタン文字列
+*/
+
+/**
+@struct WKC::ScreenDeviceParams_
+@brief スクリーンデバイスの情報を格納するための構造体。
+*/
+
+/**
+@typedef WKC::ScreenDeviceParams_ WKC::ScreenDeviceParams
+@brief WKC::ScreenDeviceParams の型定義。
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fScreenWidth
+@brief スクリーンデバイスの幅。
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fScreenHeight
+@brief スクリーンデバイスの高さ。
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fAvailableScreenWidth
+@brief スクリーンデバイス中でコンテンツが利用できる幅。
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fAvailableScreenHeight
+@brief スクリーンデバイス中で、コンテンツが利用できる幅。
+@brief
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fScreenDepth
+@brief スクリーンの色深度。1ピクセルが何ビットかを表す値。
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fScreenDepthPerComponent
+@brief RGBそれぞれの色深度。RGBの各要素が何ビットかを表す値。値は一つしか設定できない。
+*/
+
+/**
+@var WKC::ScreenDeviceParams::fIsMonochrome
+@brief スクリーンデバイスがモノクロームデバイスかどうかの設定。
+*/
+
+/**
+@typedef void (*WKC::ForceNotifyScrollProc)(WKCWebView* view, const WKCPoint& scrollPoint)
+@brief ForceNotifyScrollProc の型定義。
+@param "WKCWebView* view" ウェブビューへのポインタ
+@param "const WKCPoint& scrollPoint" スクロール先位置の絶対座標
+*/
+
+/**
+@typedef void (*WKC::ResolveFilenameForDisplayProc)(const unsigned short* path, const int path_len, unsigned short* out_path, int* out_path_len, const int path_maxlen)
+@brief ファイル選択の描画文字列を返すコールバック関数。
+@param "const unsigned short* path" 選択されたファイルのパス
+@param "const int path_len" 選択されたファイルのパスの長さ（文字数）
+@param "unsigned short* out_path" 描画したい文字列の格納領域へのポインタ
+@param "int* out_path_len" 描画したい文字列の長さ（文字数）
+@param "const int path_maxlen" out_pathに格納できる最大長（文字数）
+*/
+
+/**
+@fn void WKC::WKCWebKitInitialize(void* memory, unsigned int memory_size, void* font_memory, unsigned int font_memory_size, WKCMemoryEventHandler& memory_event_handler, WKCTimerEventHandler& timer_event_handler)
+@brief ブラウザエンジンの初期化。
+@param "void* memory" ブラウザエンジン用のヒープメモリへのポインタ
+@param "unsigned int memory_size" ブラウザエンジン用のヒープメモリのサイズ（バイト）
+@param "void* font_memory" フォントエンジン用のヒープメモリへのポインタ
+@param "unsigned int font_memory_size" フォントエンジン用のヒープメモリのサイズ（バイト）
+@param "WKCMemoryEventHandler& memory_event_handler" WKC::WKCMemoryEventHandlerへの参照
+@param "WKCTimerEventHandler& timer_event_handler" WKC::WKCTimerEventHandlerへの参照
+@return なし
+@details
+ブラウザエンジン用のヒープメモリは10MB以上の値をセットする必要がある。@n
+フォントエンジン用のヒープメモリは256KB以上で適切な値をセットする必要がある。パフォーマンスとのトレードオフをかんがえると、サイズは512KBが推奨値となっている。
+@attention
+フォントエンジン用のヒープメモリの設定方法は今後変更される可能性があります。
+*/
+/**
+@fn void WKC::WKCWebKitResetVariables()
+@brief ブラウザエンジン内の静的変数の初期化。
+@param なし
+@return なし
+@details
+ブラウザエンジン内で静的メモリ領域に配置されている変数の初期化を一括して行う。
+WKC::WKCWebKitInitialize() 内で呼び出されているので、通常は呼び出す必要はない。
+ブラウザエンジン側でメモリ不足に陥った場合などは、必要に応じて呼び出す必要がある。
+*/
+/**
+@fn void WKC::WKCWebKitResetROMTables()
+@brief ブラウザエンジン内の静的ReadOnly変数の初期化。
+@param なし
+@return なし
+@details
+ブラウザエンジン内で静的メモリ領域に配置されているReadOnly変数の初期化を一括して行う。
+WKC::WKCWebKitResetVariables() 内で呼び出されているので、通常は呼び出す必要はない。
+*/
+/**
+@fn void WKC::WKCWebKitFinalize()
+@brief ブラウザエンジンの終了。
+@return なし
+*/
+/**
+@fn void WKC::WKCWebKitForceTerminate()
+@brief ブラウザエンジンの強制終了。
+@param なし
+@return なし
+@details
+ブラウザエンジンを強制終了させるために必要な処理を一括して行う。
+ブラウザエンジン内でメモリ不足等が発生し、ブラウザエンジンを強制的に終了させざるを得なくなった場合にのみ呼び出すこと。
+通常時においてブラウザエンジンを終了させる場合は、通常の手順に従い、 WKC::WKCWebKitFinalize() を呼び出せばよい。
+*/
+/**
+@fn void WKC::WKCWebKitForceFinalize()
+@brief アプリケーション終了目的でのブラウザエンジンの強制終了。
+@param なし
+@return なし
+@details
+ブラウザエンジンを強制終了させるために必要な処理を一括して行う。
+ブラウザエンジンを強制終了させてアプリケーションも終了させる場合に呼び出すこと。
+通常時においてブラウザエンジンを終了させる場合は、通常の手順に従い、 WKC::WKCWebKitFinalize() を呼び出せばよい。
+*/
+/**
+@fn unsigned int  WKC::WKCWebKitAvailableMemory();
+@brief ブラウザエンジンヒープの残量取得。
+@retval unsigned int ヒープメモリの残量（バイト）
+*/
+/**
+@fn unsigned int  WKC::WKCWebKitMaxAvailableBlock();
+@brief ブラウザエンジンヒープのアロケート可能最大サイズ取得。
+@retval unsigned int アロケート可能最大サイズ（バイト）
+*/
+/**
+@fn void WKC::WKCWebKitRequestGarbageCollect()
+@brief JSのガーベジコレクタの実行
+@return なし
+@details
+JSのGCを呼ぶ。呼ぶタイミングはアプリケーション側のコンテキストで呼ぶこと。
+*/
+/**
+@fn unsigned int WKC::WKCWebKitFontHeapSize()
+@brief フォントエンジン用ヒープメモリ推奨サイズ
+@return 推奨サイズ（バイト）
+@details
+WKC::WKCWebKitInitialize() や WKC::WKCWebKitResumeFont() に渡す font_memory_size の推奨値。
+*/
+/**
+@fn void WKC::WKCWebKitSuspendFont()
+@brief フォントエンジン用サスペンド処理
+@return なし
+@details
+フォントエンジン用ヒープを切り離し、必要なら他の用途に使用できるようにする。
+*/
+/**
+@fn void WKC::WKCWebKitResumeFont(void* font_memory, unsigned int font_memory_size)
+@brief フォント用リジューム処理
+@param "void* font_memory" フォントエンジン用のヒープメモリへのポインタ
+@param "unsigned int font_memory_size" フォントエンジン用のヒープメモリのサイズ（バイト）
+@return なし
+@details
+フォントエンジン用ヒープメモリを与え、フォントエンジンが動作できるようにする。
+*/
+
+
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@class WKC::WKCWebWindowFeature; 
+@brief (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@class WKC::WKCHitTestResult; 
+@brief ヒットテストの結果を保持するクラス。
+@endcond
+*/
+/**
+@class WKC::WKCWebView 
+@brief ブラウザのコンテンツの表示画面に相当するクラス。
+*/
+/**
+@fn  static WKCWebView* WKC::WKCWebView::create(WKCClientBuilders& builders)
+@brief ウェブビューの生成。
+@param "WKCClientBuilders& builders" WKCClientBuildersへの参照
+@retval WKCWebView* ウェブビューへのポインタ
+@details
+::WKCWebViewを生成しそのポインタを返す。 @n
+@attention
+生成されたウェブビューを破棄する場合は、 WKC::WKCWebView::deleteWKCWebView() を呼び出すこと。
+*/
+
+/**
+@fn  static void WKC::WKCWebView::deleteWKCWebView(WKCWebView *self);
+@brief ウェブビューの破棄。
+@param "WKCWebView *self" ウェブビューへのポインタ
+@return なし
+@details
+WKC::WKCWebView::create() で生成されたウェブビューを破棄する。
+*/
+/**
+@fn  bool WKC::WKCWebView::setOffscreen(WKC::OffscreenFormat format, void* bitmap, int rowbytes, const WKCSize& desktopsize, const WKCSize& viewsize, bool fixedlayout)
+@brief オフスクリーンの設定。 
+@param "WKC::OffscreenFormat format" オフスクリーンのフォーマットタイプ
+@param "void* bitmap" オフスクリーンのメモリへのポインタ
+@param "int rowbytes" オフスクリーンの１ライン分のバイト数
+@param "const WKCSize& desktopsize" デスクトップのサイズの初期値
+@param "WKCSize& viewsize" ビューのサイズ（レイアウト固定サイズ）の初期値
+@param "bool fixedlayout" レイアウト固定サイズの利用設定
+- true  レイアウト固定サイズを利用する。
+- false レイアウト固定サイズを利用する。
+@retval !false 成功
+@retval false 失敗  
+*/
+/**
+@fn  void WKC::WKCWebView::notifyResizeViewSize(const WKCSize& size)
+@brief ビューサイズの変更。
+@param "const WKCSize& size" ビューのサイズ
+@return なし
+@details
+ビューサイズはレイアウトに使われるサイズとして利用される。ページ遷移により WKCWebView::setOffscreen() で指定した初期値に設定がエンジン側で再修正される。　
+*/
+/**
+@fn  void WKC::WKCWebView::notifyResizeDesktopSize(const WKCSize& size)
+@brief デスクトップサイズの変更。
+@param "const WKCSize& size" デスクトップのサイズ
+@return なし
+@details
+デスクトップサイズは描画に使われるサイズとして利用される。ページ遷移により WKCWebView::setOffscreen() で指定した初期値に設定がエンジン側で再修正される。　
+*/
+/**
+@fn  void WKC::WKCWebView::notifyRelayout(bool force = false)
+@brief エンジンレイアウト要求。
+@param "bool force" @n
+- !false  強制レイアウト（@subpage bbb-mobilelayout を行う場合）@n
+- false  通常レイアウト@n
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::notifyPaintOffscreen(const WKCRect& rect)
+@brief オフスクリーンの描画要求。
+@param "const WKCRect& rect" 描画を行う矩形
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::notifyScrollOffscreen(const WKCRect& rect, const WKCSize& diff)
+@brief オフスクリーンのスクロール要求。
+@param "const WKCRect& rect" スクロール対象の矩形
+@param "const WKCSize& diff" スクロール量
+@return なし
+@details
+本関数はかならず WKC::ChromeClientWKC::scroll() のコールバック内で呼ぶ必要がある。 @n 
+また引数で指定する rect と diffには WKC::ChromeClientWKC::scroll() で通知された rectToScroll と scrollDelta を指定する必要がある。
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyKeyPress(WKC::Key key, WKC::Modifier modifiers)
+@brief キープレスイベントの送信。
+@param "WKC::Key key" キータイプ
+@param "WKC::Modifier modifiers" 修飾キータイプ
+@retval !false 成功
+@retval false 失敗
+@details
+本APIと WKC::WKCWebView::notifyKeyRelease() で、::EKeyTabを送信すると順方向にフォーカス移動を行う。
+::EKeyTabと::EModifierShiftを送信すると逆方向にフォーカス移動を行う。
+@attention
+WKC::ChromeClientWKC::tabsToLinks() の戻り値にfalseを設定した場合は、::EKeyTabを送信してもフォーカス移動を行わない。
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyKeyRelease(WKC::Key ley, WKC::Modifier modifiers)
+@brief キーリリースイベントの送信。
+@param "WKC::Key ley" キータイプ
+@param "WKC::Modifier modifiers" 修飾キータイプ
+@retval !false 成功
+@retval false 失敗
+@details
+本APIと WKC::WKCWebView::notifyKeyPress() で、::EKeyTabを送信すると順方向にフォーカス移動を行う。
+::EKeyTabと::EModifierShiftを送信すると逆方向にフォーカス移動を行う。
+@attention
+WKC::ChromeClientWKC::tabsToLinks() の戻り値にfalseを設定した場合は、::EKeyTabを送信してもフォーカス移動を行わない。
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyMouseDown(const WKCPoint& pos, WKC::MouseButton button, WKC::Modifier modifiers)
+@brief マウスダウンイベントの送信。
+@param "const WKCPoint& pos" イベントの発生位置
+@param "WKC::MouseButton button" マウスボタンのタイプ
+- WKC::EMouseButtonLeft マウスボタン左
+- WKC::EMouseButtonMiddle マウスボタン中
+- WKC::EMouseButtonRight マウスボタン右
+@param "WKC::Modifier modifiers" 修飾キータイプ
+- WKC::EModifierNone　修飾キー無し
+- WKC::EModifierCtrl　CTRLキー
+- WKC::EModifierShift SHIFTキー
+- WKC::EModifierAlt   ALTキー
+@retval !false 成功
+@retval false 失敗
+@details
+WKC::EMouseButtonNone は利用しない。
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyMouseUp(const WKCPoint& pos, WKC::MouseButton button, WKC::Modifier modifiers)
+@brief マウスアップイベントの送信。
+@param "const WKCPoint& pos" イベントの発生位置
+@param "WKC::MouseButton button" マウスボタンのタイプ
+- WKC::EMouseButtonLeft マウスボタン左
+- WKC::EMouseButtonMiddle マウスボタン中
+- WKC::EMouseButtonRight マウスボタン右
+@param "WKC::Modifier modifiers" 修飾キータイプ
+- WKC::EModifierNone　修飾キー無し
+- WKC::EModifierCtrl　CTRLキー
+- WKC::EModifierShift SHIFTキー
+- WKC::EModifierAlt   ALTキー
+@retval !false 成功
+@retval false 失敗
+@details
+WKC::EMouseButtonNone は利用しない。
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyMouseMove(const WKCPoint& pos, WKC::MouseButton button, Modifier modifiers)
+@brief マウスムーブイベントの送信。
+@param "const WKCPoint& pos" イベントの発生位置
+@param "WKC::MouseButton button" マウスボタンのタイプ
+- WKC::EMouseButtonLeft マウスボタン左
+- WKC::EMouseButtonMiddle マウスボタン中
+- WKC::EMouseButtonRight マウスボタン右
+- WKC::EMouseButtonNone マウスボタン無し
+@param "WKC::Modifier modifiers" 修飾キータイプ
+- WKC::EModifierNone　修飾キー無し
+- WKC::EModifierCtrl　CTRLキー
+- WKC::EModifierShift SHIFTキー
+- WKC::EModifierAlt   ALTキー
+@retval !false 成功
+@retval false 失敗
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyMouseDoubleClick(const WKCPoint& pos, WKC::MouseButton button, Modifier modifiers);
+@brief マウスのダブルクリックイベントの送信。
+@param "const WKCPoint& pos" イベントの発生位置
+@param "WKC::MouseButton button" マウスボタンのタイプ
+- WKC::EMouseButtonLeft マウスボタン左
+- WKC::EMouseButtonMiddle マウスボタン中
+- WKC::EMouseButtonRight マウスボタン右
+@param "WKC::Modifier modifiers" 修飾キータイプ
+- WKC::EModifierNone　修飾キー無し
+- WKC::EModifierCtrl　CTRLキー
+- WKC::EModifierShift SHIFTキー
+- WKC::EModifierAlt   ALTキー
+@retval !false 成功
+@retval false 失敗
+@details
+WKC::EMouseButtonNone は利用しない。
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyScroll(WKC::ScrollType scrolltype)
+@brief スクロールイベントの送信。
+@param "WKC::ScrollType scrolltype" スクロールのタイプ
+@retval !false 成功
+@retval false 失敗
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyScroll(int dx, int dy)
+@brief スクロールイベントの送信。
+@param "int dx" x方向の移動量
+@param "int dy" y方向の移動量
+@retval !false 成功
+@retval false 失敗
+*/
+/**
+@fn  bool WKC::WKCWebView::notifyScrollTo(int x, int y)
+@brief スクロールイベントの送信。
+@param "int x" スクロール位置のx座標
+@param "int y" スクロール位置のy座標
+@retval !false 成功
+@retval false 失敗
+*/
+/**
+@fn  void WKC::WKCWebView::scrollPosition(WKCPoint& pos)
+@brief スクロール位置の取得。
+@param "WKCPoint& pos" スクロール位置の座標への参照
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::contentsSize(WKCSize& size)
+@brief コンテンツサイズの取得。
+@param "WKCSize& size" コンテンツサイズへの参照
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::notifyFocusIn()
+@brief フォーカスフレームのアクティブ化。
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::notifyFocusOut()
+@brief アクティブフレームの解除。
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::notifySuspend()
+@brief ブラウザエンジンの停止要求。
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::notifyResume()
+@brief ブラウザエンジンの再開要求。
+@return なし
+*/
+/**
+@fn  const unsigned short* WKC::WKCWebView::title()
+@brief 表示コンテンツのタイトルの取得。
+@retval "const unsigned short*" タイトル文字列へのポインタ
+*/
+/**
+@fn  const char* WKC::WKCWebView::uri()
+@brief 表示コンテンツのURLの取得。
+@retval "const char*" URLの文字列へのポインタ
+*/
+/**
+@fn  WKC::WKCSettings* WKC::WKCWebView::settings()
+@brief 設定の取得。
+@retval WKC::WKCSettings* WKC::WKCSettingsへのポインタ
+*/
+/**
+@fn void WKC::WKCWebView::notifyForceTerminate()
+@brief ブラウザエンジンの強制終了通知。
+@param なし
+@return なし
+@details
+ブラウザエンジンの強制終了を WKCWebView クラスのインスタンスに通知する。
+WKCWebView クラスのインスタンスが複数存在する場合には、個々のインスタンスに対して呼び出さなければならない。
+ブラウザエンジン内でメモリ不足等が発生し、ブラウザエンジンを強制的に終了させざるを得なくなった場合にのみ呼び出すこと。
+WKC::WKCWebKitForceTerminate() を呼び出す前に、必ず呼び出すこと。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::setMaintainsBackForwardList(bool flag)
+@brief (TBD) implement descriptiion
+@param flag (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  bool WKC::WKCWebView::canGoBack()
+@brief 遷移履歴の後移動可否の問合せ。
+@retval !false 移動可
+@retval false 移動不可
+*/
+/**
+@fn  bool WKC::WKCWebView::canGoBackOrForward(int steps)
+@brief 遷移履歴の前後移動可否の問合せ。 
+@param "int steps" 移動量 @n
+- > 0 前方向移動量 @n
+- < 0 後方向移動量 @n
+@retval !false 移動可
+@retval false 移動不可
+@details
+steps に 0 を入力した場合は 常に !false を返す。
+*/
+/**
+@fn  bool WKC::WKCWebView::canGoForward()
+@brief 遷移履歴の前移動可否の問合せ。
+@retval !false 移動可
+@retval false 移動不可
+*/
+/**
+@fn  bool WKC::WKCWebView::goBack()
+@brief 後の遷移履歴への移動。
+@retval !false 成功
+@retval false 失敗
+*/
+/**
+@fn  void WKC::WKCWebView::goBackOrForward(int steps)
+@brief 遷移履歴の前後移動
+@param "int steps" 移動量 @n
+- > 0 前方向移動量 @n
+- < 0 後方向移動量 @n
+- = 0 遷移および再読み込みが発生しない @n
+@return なし
+@details
+本関数を呼び出す前に WKC::WKCWebView::canGoBackOrForward() を用いて、遷移先履歴が存在するかを確かめてから遷移を行うこと。
+*/
+/**
+@fn  bool WKC::WKCWebView::goForward()
+@brief 前の遷移履歴への移動。
+@retval !false 成功
+@retval false 失敗
+*/
+/**
+@fn  void WKC::WKCWebView::stopLoading()
+@brief ページ取得の中止。
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::reload()
+@brief ページの再取得。
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::reloadBypassCache()
+@brief ページのネットワークからの再取得。
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::loadURI(const char* uri)
+@brief ページの取得。
+@param "const char* uri" URIの文字列へのポインタ
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::loadString(const char* content, const unsigned short* mimetype, const unsigned short* encoding, const char* base_uri)
+@brief ページの取得。
+@param "const char* content" コンテンツの文字列へのポインタ
+@param "const unsigned short* mimetype" マイムタイプの文字列へのポインタ。0 の場合は text/html として扱われる。
+@param "const unsigned short* encoding" エンコードタイプの文字列へのポインタ。0 の場合は UTF-8 として扱われる。
+@param "const char* base_uri" 基底URI文字列へのポインタ
+@return なし
+@details
+content として利用可能なデータは現状では文字列のみとなる。
+*/
+/**
+@fn  void WKC::WKCWebView::loadHTMLString(const char* content, const char* base_uri)
+@brief ページの取得。
+@param "const char* content" コンテンツの文字列へのポインタ（UTF-8）
+@param "const char* base_uri" 基底URI文字列へのポインタ
+@return なし
+@details
+content文字列を"text/html"のコンテンツとしてページ表示を行う。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::loadRequest(WKCNetworkRequest* request)
+@brief ページの取得。
+@param "WKCNetworkRequest* request" WKCNetworkRequestへのポインタ
+@return なし
+@details
+(TBD) implement description
+@endcond
+*/
+/**
+@fn  bool WKC::WKCWebView::searchText(const unsigned short* text, bool case_sensitive, bool forward, bool wrap)
+@brief 文字列の検索。
+@param "const unsigned short* text" 検索対象の文字列へのポインタ
+@param "bool case_sensitive" 大文字小文字の区別 @n
+- !false 大文字小文字を区別する @n
+- false 大文字小文字を区別しない @n
+@param "bool forward" 検索方向 @n
+- !false 前方向 @n
+- false 後方向 @n
+@param "bool wrap" ワードラップの考慮 @n
+- !false ワードラップを考慮する @n
+- false ワードラップを考慮しない @n
+@retval !false 検索結果あり
+@retval false 検索結果なし
+*/
+/**
+@fn  unsigned int WKC::WKCWebView::markTextMatches(const unsigned short* string, bool case_sensitive, unsigned int limit)
+@brief 文字列の複数検索。
+@param "const unsigned short* string" 検索対象の文字列へのポインタ
+@param "bool case_sensitive" 大文字小文字の区別 @n
+- !false 大文字小文字を区別する @n
+- false 大文字小文字を区別しない @n
+@param "unsigned int limit" 検索結果の上限値 @n
+- 0 無制限 @n
+- number 上限値 @n
+@retval "unsigned int" マッチした文字列の個数
+@details
+未サポート。
+*/
+/**
+@fn  void WKC::WKCWebView::setHighlightTextMatches(bool highlight)
+@brief 検索文字列のハイライト設定。
+@param highlight ハイライトの設定値 @n
+- !false ハイライトする @n
+- false ハイライトしない @n
+@return なし
+@details
+未サポート。
+*/
+/**
+@fn  void WKC::WKCWebView::unmarkTextMatches()
+@brief 検索文字列のクリア。
+@return なし
+@details
+未サポート。
+*/
+/**
+@fn  WKCWebFrame* WKC::WKCWebView::mainFrame()
+@brief メインフレームの取得。
+@retval WKCWebFrame* メインフレームのウェブフレームへのポインタ
+*/
+/**
+@fn  WKCWebFrame* WKC::WKCWebView::focusedFrame()
+@brief フォーカスドフレームの取得。
+@return WKCWebFrame* フォーカスドフレームのウェブフレームへのポインタ
+*/
+/**
+@fn  void WKC::WKCWebView::executeScript(const char* script)
+@brief ユーザJavaScriptの実行。
+@param "const char* script" JavaScriptの文字列へのポインタ（UTF-8）
+@return なし
+*/
+/**
+@fn  void WKC::WKCWebView::setJavaScriptURLsAreAllowed(bool flag)
+@brief JavaScript:の有効化設定。
+@param "bool flag" JavaScript: の有効化の設定値
+- !false 有効化する @n
+- false 有効化しない @n
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::canCutClipboard()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::canCopyClipboard()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::canPasteClipboard()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::cutClipboard()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::copyClipboard()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::pasteClipboard()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  void WKC::WKCWebView::deleteSelection()
+@brief 選択範囲の削除。
+@return なし
+*/
+/**
+@fn  bool WKC::WKCWebView::hasSelection()
+@brief 選択範囲の有無の確認。
+@retval !false 選択範囲がある
+@retval fase 選択範囲がない
+*/
+/**
+@fn  void WKC::WKCWebView::clearSelection()
+@brief 選択範囲の解除。
+@return なし
+*/
+/**
+@fn  bool WKC::WKCWebView::selectionRects(WKC::Vector<WKCRect, 0>& rects, bool textonly, bool useSelectionHeight)
+@brief 選択範囲内の矩形リストの取得。
+@param "WKC::Vector<WKCRect, 0>& rects" 取得した矩形リスト
+@param "bool textonly" 選択するエレメントの種類 @n
+- !false テキストが含むエレメントのみ
+- false すべてのエレメント
+@param "bool useSelectionHeight" 高さの指定方法（textonly が !false 時のみ有効） @n
+- !false 選択領域の高さを使用
+- false テキストの高さを使用
+@retval !false 矩形リストの取得成功
+@retval fase 矩形リストの取得失敗
+*/
+/**
+@fn  WKCRect WKC::WKCWebView::selectionBoundingBox(bool textonly, bool useSelectionHeight)
+@brief 選択範囲内の BoundingBox の取得。
+@param "bool textonly" 選択するエレメントの種類 @n
+- !false テキストが含むエレメントのみ
+- false すべてのエレメント
+@param "bool useSelectionHeight" 高さの指定方法（textonly が !false 時のみ有効） @n
+- !false 選択領域の高さを使用
+- false テキストの高さを使用
+@return BoundingBox への WKCRect オブジェクト
+*/
+/**
+@fn  const unsigned short* WKC::WKCWebView::selectionText()
+@brief 選択範囲内のテキストの取得。
+@param なし
+@return テキスト文字列へのポインタ（NULL終端つき、改行コードあり）
+*/
+/**
+@fn  void WKC::WKCWebView::selectAll()
+@brief 全選択。
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::editable()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::setEditable(bool flag)
+@brief (TBD) implement description
+@param flag (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  WKCWebInspector* WKC::WKCWebView::inspector()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  WKCWebWindowFeature* WKC::WKCWebView::windowFeature()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  bool WKC::WKCWebView::canShowMimeType(const unsigned short* mime_type)
+@brief マイムタイプの表示可否の確認。
+@param "const unsigned short* mime_type" マイムタイプの文字列へのポインタ
+@retval !false 表示可
+@retval false 表示不可
+*/
+/**
+@fn  bool WKC::WKCWebView::transparent()
+@brief 透過指定の確認。
+@retval !false 透過指定が有効
+@retval false 透過指定が無効
+*/
+/**
+@fn  void WKC::WKCWebView::setTransparent(bool flag)
+@brief 透過指定の設定。
+@param "bool flag" 透過指定の設定値 @n
+- !false 透過指定有効 @n
+- false 透過指定無効 @n
+@return なし
+*/
+/**
+@fn  float WKC::WKCWebView::zoomLevel()
+@brief ズーム倍率の取得。
+@retval float ズーム倍率
+*/
+/**
+@fn  float WKC::WKCWebView::setZoomLevel(float zoom_level)
+@brief コンテンツの拡大縮小処理。
+@param "float zoom_level" ズーム倍率 @n
+- < 1.0 縮小表示
+- == 1.0 オリジナルサイズ
+- > 1.0 拡大表示
+@return float 設定したズーム倍率
+*/
+/**
+@fn  void WKC::WKCWebView::zoomIn(float ratio)
+@brief コンテンツの拡大。
+@param "float ratio" ズーム倍率
+@return なし
+@details
+::zoomLevel() の倍率にratioの倍率を加算して拡大表示を行う。
+*/
+/**
+@fn  void WKC::WKCWebView::zoomOut(float ratio)
+@brief コンテンツの縮小。
+@param "float ratio" ズーム倍率
+@return なし
+@details
+::zoomLevel() の倍率にratioの倍率を減算して縮小表示を行う。
+*/
+/**
+@fn  bool WKC::WKCWebView::fullContentZoom()
+@brief コンテンツ全体の拡大・縮小の設定の確認。
+@retval !false コンテンツ全体の拡大・縮小を行う
+@retval false 文字列に対して拡大・縮小を行う
+*/
+/**
+@fn  void WKC::WKCWebView::setFullContentZoom(bool full_content_zoom)
+@brief コンテンツ全体の拡大・縮小の設定。
+@param "bool full_content_zoom" ズーム種別の設定 @n
+- !false コンテンツ全体の拡大・縮小を行う @n
+- false 文字列に対して拡大・縮小を行う @n
+@return なし
+*/
+/**
+@fn float WKC::WKCWebView::opticalZoomLevel() const;
+@brief 光学拡縮倍率の取得
+@return 光学拡縮倍率
+@details 
+@ref bbb-opticalzoom 
+*/
+/**
+@fn const WKCFloatPoint& WKC::WKCWebView::opticalZoomOffset() const;
+@brief 光学拡縮のオフセット値の取得
+@retval 光学拡縮のオフセット値
+@details
+@ref bbb-opticalzoom 
+*/
+
+/**
+@fn float WKC::WKCWebView::setOpticalZoom(float zoom_level, const WKCFloatPoint& offset);
+@brief 光学拡縮の設定
+@param "float zoom_level" 光学拡縮倍率の設定 @n
+- = 1.f: 何もしない。
+- < 1.f: 縮小率
+- > 1.f: 拡大率
+@param "const WKCFloatPoint& offset" 光学拡縮が行われる領域のオフセット値。@n
+@retval float 設定された光学拡縮倍率
+@details
+@ref bbb-opticalzoom 
+*/
+/**
+@fn  const unsigned short* WKC::WKCWebView::encoding()
+@brief 文字エンコーディングの取得。
+@retval "const unsigned short*" 文字コードの文字列へのポインタ
+*/
+/**
+@fn  void WKC::WKCWebView::setCustomEncoding(const unsigned short* encoding)
+@brief カスタム文字エンコーディングの設定。
+@param "const unsigned short* encoding" 文字コードの文字列へのポインタ
+@return なし
+*/
+/**
+@fn  const unsigned short* WKC::WKCWebView::customEncoding()
+@brief カスタム文字エンコーディングの取得。
+@retval "const unsigned short*" 文字コードの文字列へのポインタ
+*/
+/**
+@fn  WKC::LoadStatus WKC::WKCWebView::loadStatus()
+@brief 取得状態の取得。
+@retval WKC::LoadStatus コンテンツの取得状態
+*/
+/**
+@fn  double WKC::WKCWebView::progress()
+@brief 取得の進捗状況の取得。
+@return (TBD) implement description 
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::undo()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::canUndo()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::redo()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::canRedo()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  void WKC::WKCWebView::setViewSourceMode(bool mode)
+@brief (TBD) implement description
+@param mode (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  bool WKC::WKCWebView::viewSourceMode()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  WKCHitTestResult* WKC::WKCWebView::hitTestResult()
+@brief 現在のカーソル位置のヒットテスト結果の取得。
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn void WKC::WKCWebView::setCacheModel(WKC::CacheModel model, unsigned int total)
+@brief キャッシュ関連の設定
+@param model キャッシュ方式の設定
+- WKC::ECacheModelDocumentViewer ドキュメントビューワー 
+- WKC::ECacheModelWebBrowser モバイルウェブブラウザ
+@param total キャッシュ削除の閾値
+@return なし
+@details
+キャッシュ方式とキャッシュ削除の閾値を設定する。
+total からキャッシュ方式に応じて各種キャッシュ動作の設定値が自動的に設定される。
+*/
+/**
+@fn void WKC::WKCWebView::setCacheCapacities(unsigned int min_dead_resource, unsigned int max_dead_resource, unsigned int total)
+@brief キャッシュ関連の設定
+@param "unsigned int min_dead_resource" 過去のページのキャッシュリソースの最低値
+@param "unsigned int max_dead_resource" 過去のページのキャッシュリソースの最大値
+@param "unsigned int total" キャッシュの最大値
+@return なし
+@details
+ブラウザエンジンで保持するキャッシュのサイズを設定する。 total は現在のページのキャッシュリソースと過去のページのキャッシュリソースの合計値であり、この値よりキャッシュリソースが多くなるとキャッシュデータが削除される。max_dead_resource は全体のキャッシュ量における過去のページのキャッシュリソースがしめる最大値であり、 min_dead_resource は最低値である。 
+*/
+/**
+@fn void WKC::WKCWebView::setDeadDecodedDataDeletionInterval(double interval)
+@brief キャッシュのデコード済みデータを削除するタイマーの設定
+@param "double interval"  削除するまでの時間（秒）
+@return なし
+@details
+ブラウザエンジンでデコード済みデータが参照されなくなった場合に本タイマーが設定され、タイムアウト時にデコード済みデータが削除される。タイマーを使用しない場合は0を設定すること。
+*/
+/**
+@fn void WKC::WKCWebView::clearCaches()
+@brief キャッシュの削除
+@return なし
+@details
+キャッシュのクリアを行う。本APIを呼んだ後はキャッシュ関連の閾値が0にクリアされるため、 WKC::WKCWebView::setCacheModel() を再度呼んでキャッシュの再設定を行うこと。
+*/
+/**
+@fn void WKC::WKCWebView::setMinDelayBeforeLiveDecodedPruneCaches(double delay)
+@brief ブラウザ内部のキャッシュの削除の猶予の時間の設定
+@param "duble delay" キャッシュ削除の猶予時間（秒）
+@return なし
+@details
+ブラウザ内部でデコード済みデータのキャッシュ削除が行われるまでの猶予時間を設定する。
+最後にアクセスされた時間から削除が実行されるまでの時間が、設定時間より短い場合には削除されない。
+*/
+/**
+@fn void WKC::WKCWebView::cachedSize(unsigned int& dead_resource, unsigned int& live_resource)
+@brief 現在のキャッシュ済みサイズの取得
+@param "unsigned int& dead_resource" 過去のページのキャッシュリソースのサイズ
+@param "unsigned int& live_resource" 現在のページのキャッシュリソースのサイズ
+@details
+ブラウザエンジンで、保持しているキャッシュ済みデータのサイズを取得する。
+dead_rerouceには過去のページのキャッシュ済みデータのサイズが設定され、live_resourceには現在のページのキャッシュ済みデータのサイズが設定される。
+*/
+/**
+@fn void WKC::WKCWebView::setProxy(bool enable, const char* host, int port, bool isHTTP10, const char* proxyuser, const char* proxypass, ProxyAuth auth)
+@brief プロキシの設定
+@param "bool enable" プロキシ利用の可否 @n
+- !false 利用する @n
+- false 利用しない @n
+@param "const char* host" ホストアドレスの文字列へのポインタ
+@param "int port" ポート番号
+@param "bool isHTTP10" ProxyがHTTP 1.0のみサポートしている
+@param "const char* proxyuser" ユーザIDの文字列へのポインタ
+@param "const char* proxypass" パスワードの文字列へのポインタ
+@param "ProxyAuth auth" プロキシ認証の種類
+@return なし
+@attention
+SSL Proxyは未サポート
+*/
+/**
+@fn void WKC::WKCWebView::setMaxTCPConnections(long num)
+@brief 最大TCP Connection数の設定
+@param "long num" 最大TCP Connection数 @n
+@return なし
+@details
+本関数を呼ぶことにより、ブラウザエンジンが使用するTCP Connection数の最大値を変更できる。
+@attention
+通信中に設定してはならない。
+*/
+/**
+@fn void WKC::WKCWebView::clearCookies()
+@brief Cookie の削除
+@return なし
+@details
+内部の Cookie データは、ブラウザエンジンで共通である。 @n
+本関数を呼ぶと、全てのブラウザエンジン内部の Cookie データが削除される。
+@attention
+ユーザの意思により保存されたCookieを削除する場合はどのタイミングで呼び出してもよい。ただしCookie削除後のページ再現性は保障されない。@n
+ユーザの意図以外でアプリケーションがCookieを削除したい場合は、ページ閲覧中は避けるべきである。
+*/
+/**
+@fn void WKC::WKCWebView::setMaxCookieEntries(long number)
+@brief 内部に保存できるcookieの最大数の設定
+@param "long number" 最大cookie数 @n
+@return なし
+@details
+内部のCookieデータは、ブラウザエンジンで共通である。 @n
+本関数を呼ぶことにより、ブラウザエンジンで保持されているcookieの最大数を変更できる。@n
+デフォルト値は20件。
+@attention
+通信中に設定した場合、動作は保障しない。
+*/
+/**
+@fn void WKC::WKCWebView::CookieSerializeStart()
+@brief cookieシリアライズの開始
+@return なし
+@details
+cookieシリアライズを開始する。@n
+@attention
+- Mutexで排他処理を行うので、ごく短時間Start関数が戻ってこない場合がある。
+- Serialize Start関数の排他処理で待っているときに、メモリ不足が発生する場合がある。
+- Serialize Start関数内でmemory allocationを行っていますので、Cookie件数×7KByteのメモリが必要となる。 
+*/
+/**
+@fn int WKC::WKCWebView::CookieSerializeProgress(char* data, unsigned int len, unsigned int* writtenlen)
+@brief シリアライズされたcookieの読み込み
+@param "data" 読み込むデータのバッファ
+@param "len" 読み込むデータのバッファ長
+@param "writtenlen" 書き込まれたデータの長さ
+@retval 1 失敗
+@retval 0 成功
+@details
+シリアライズされたcookieを読み込む。
+@attention
+- CookieSerializeStart() を行わないうちに呼び出さないこと。
+- dataとlenは最後に'\\0'が書き込まれることを考慮すること。
+- dataが0かつwrittenlenが与えられた場合は、読み込むデータの長さが判別できる。
+- lenが書き込む予定の長さより短い場合は失敗が返される。
+- 戻り値が0かつwrittenlenが0だと読み込み終了となる。
+- 取り出されるcookieは、有効期限がないものも含まれる(有効期限切れは含まない)。
+- 有効期限がないものはTAB区切り5番目の項目が"NoExpires"と記述される。
+- アプリケーションは、ブラウザ終了時に"NoExpires"が含まれるCookieを保存してはいけない。
+- アプリケーションは、メモリ不足等でのエンジン再起動時には、有効期限がないものも登録すること。
+*/
+/**
+@fn void WKC::WKCWebView::CookieSerializeEnd()
+@brief cookieシリアライズの終了
+@return なし
+@details
+cookieシリアライズを終了する。@n
+@attention
+- CookieSerializeStart() を行わないうちに呼び出さないこと。
+- CookieSerializeStart() を行ったら、必ず CookieSerializeEnd() で終了すること。
+*/
+/**
+@fn void WKC::WKCWebView::CookieDeserializeStart(bool restart)
+@brief cookieデシリアライズの開始
+@param "restart" メモリ不足等でのエンジン再起動時にtrueを指定する
+@return なし
+@details
+cookieデシリアライズを開始する。@n
+@attention
+- restart == true 時は CookieDeserializeProgress() で与えたcookieはすべて登録される。
+- restart == false 時は CookieDeserializeProgress() で与えたcookieは有効期限があり、有効期限内なものだけ登録される。
+- Mutexで排他処理を行うので、ごく短時間Start関数が戻ってこない場合がある。
+*/
+/**
+@fn int WKC::WKCWebView::CookieDeserializeProgress(const char *cookie, unsigned int len)
+@brief シリアライズされたcookieの登録
+@param "cookie" 登録するデータのバッファ
+@param "len" 登録するデータ長
+@retval 1 失敗
+@retval 0 成功
+@details
+- シリアライズされたcookieを登録する。
+- 登録可能最大件数（デフォルト20件、もしくは setMaxCookieEntries() で設定された件数）を超えて登録を試みると、順次古いものから削除される。
+@attention
+- CookieDeserializeStart() を行わないうちに呼び出さないこと。
+*/
+/**
+@fn void WKC::WKCWebView::CookieDeserializeEnd()
+@brief cookieデシリアライズの終了
+@return なし
+@details
+cookieデシリアライズを終了する。@n
+@attention
+- CookieDeserializeStart() を行わないうちに呼び出さないこと。
+- CookieDeserializeStart() を行ったら、必ず CookieDeserializeEnd() で終了すること。
+*/
+/**
+@fn  void WKC::WKCWebView::setUseDitherForImageDecode(int bpp, bool flag)
+@brief イメージデコード時にディザ処理を用いるかの設定
+@param "int bpp" 適応するbpp（8 or 16をサポート）
+@param "bool flag"  @n
+- true ディザ処理を利用する。
+- false ディザ処理を利用しない。
+@return なし
+@details
+デフォルトの設定は8bpp時は利用し、16bppの場合は利用しない設定になっている。
+*/
+/**
+@fn  WKC::WKCWebView::WKCWebView()
+@brief (TBD) implement description
+*/
+/**
+@fn  bool WKC::WKCWebView::construct(WKCClientBuilders& builders)
+@brief (TBD) implement description
+@param builders (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  unsigned int WKC::WKCWebView::getRSSLinkNum()
+@brief 表示中のページに含まれている RSS Link エレメント数の取得。
+@return >=0 RSS Link エレメントの数
+@details
+FrameLoaderClientWKC::dispatchDidFinishDocumentLoad 通知以降行うこと。
+*/
+/**
+@fn  unsigned int WKC::WKCWebView::getRSSLinkInfo(WKCRSSLinkInfo* info, unsigned int info_len)
+@brief 表示中のページに含まれている RSS Link エレメント情報の取得。
+@param "WKCRSSLinkInfo* info" WKC::WKCRSSLinkInfo 配列へのポインタ
+@param "unsigned int info_len" WKC::WKCRSSLinkInfo 配列の長さ
+@return コピーした RSS Link エレメントの数
+@details
+RSS Link エレメントの情報を info にコピーする。@n
+WKC::WKCRSSLinkInfo 配列の長さは WKCWebView::getRSSLinkNum() の戻り値で、呼び出し側にて WKC::WKCRSSLinkInfo のメモリ領域を確保すること。
+*/
+/**
+@fn  WKC::Node* WKC::WKCWebView::getFocusedNode()
+@brief フォーカス中のエレメントの WKC::Node オブジェクトへのポインタの取得。
+@return WKC::Node オブジェクトへのポインタ
+@details
+WKC::Node オブジェクトから、エレメントの各種情報が取得できる。@n
+- エレメント名 WKC::Node::nodeName()@n
+W3C では element name に相当する。
+- 属性 WKC::Node::attributes()@n
+W3C では attributes name に相当する。
+- 座標・サイズ WKC::Node::renderer()->absoluteBoundingBoxRect()
+@attention
+WKCWebView::getFocusedNode がコールされてから、 WKC::Node から情報を取得するまで間にイベントなどが発生すると WKC::Node の情報が使えなくなる可能性がある。@n
+この場合、再度 WKCWebView::getFocusedNode をコールしてから、 WKC::Node から情報を取得すること。
+*/
+/**
+@fn  WKC::Node* WKC::WKCWebView::getNodeFromPoint(int x, int y)
+@brief 指定座標により、ポインタの下にあるエレメントの WKC::Node オブジェクトへのポインタの取得。
+@param "x" X 座標
+@param "y" Y 座標
+@return WKC::Node オブジェクトへのポインタ
+@attention
+各座標値は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系を指定すること。
+@attention
+WKCWebView::getNodeFromPoint がコールされてから、 WKC::Node から情報を取得するまで間にイベントなどが発生すると WKC::Node の情報が使えなくなる可能性がある。@n
+この場合、再度 WKCWebView::getNodeFromPoint をコールしてから、 WKC::Node から情報を取得すること。
+*/
+/**
+@fn  bool WKC::WKCWebView::clickableFromPoint(int x, int y)
+@brief 指定座標により、ポインタの下にあるエレメントがclick可能か（clickイベントリスナーあるか）の情報の取得。
+@param "x" X 座標
+@param "y" Y 座標
+@retval !false クリック可能
+@retval false クリック不可
+@attention
+各座標値は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系を指定すること。
+*/
+/**
+@fn  bool WKC::WKCWebView::draggableFromPoint(int x, int y)
+@brief 指定座標により、ポインタの下にあるエレメントがドラッグ可能か（ondrag、dragstart、dragendイベントリスナーあるか）の情報の取得。
+@param "x" X 座標
+@param "y" Y 座標
+@retval !false ドラッグ可能
+@retval false ドラッグ不可
+@attention
+各座標値は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系を指定すること。
+*/
+
+/**
+@enum WKC::WKCWebView::ScrollbarPart
+@brief スクロールバーのパーツ種別
+*/
+
+/**
+@var WKC::WKCWebView::NoPart
+@brief 初期値
+*/
+
+/**
+@var WKC::WKCWebView::BackButtonPart
+@brief バックボタン部分
+*/
+
+/**
+@var WKC::WKCWebView::ForwardButtonPart
+@brief フォワードボタン部分
+*/
+
+/**
+@var WKC::WKCWebView::BackTrackPart
+@brief バックボタン、ツマミボタンの間の部分
+*/
+
+/**
+@var WKC::WKCWebView::ThumbPart
+@brief ツマミボタン部分
+*/
+
+/**
+@var WKC::WKCWebView::ForwardTrackPart
+@brief フォワードボタン、ツマミボタンの間の部分
+*/
+
+/**
+@var WKC::WKCWebView::ScrollbarBGPart
+@brief スクロールバー全体部分
+*/
+
+/**
+@var WKC::WKCWebView::TrackBGPart
+@brief BackTrackPart＋ThumbPart＋ForwardTrackPart 部分
+*/
+
+/**
+@fn  bool WKC::WKCWebView::isScrollbarFromPoint(int x, int y, ScrollbarPart& part, WKCRect& rect)
+@brief 指定座標により、ポインタの下にエンジンが描画するスクロールバーがあるかどうかの判定。
+@param "x" X 座標
+@param "y" Y 座標
+@param "part" ポインタが指すスクロールバーのパーツ種別（ WKC::WKCWebView::ScrollbarPart ）
+@param "rect" パーツの矩形
+@retval !false スクロールバーがある
+@retval false スクロールバーがない
+@attention
+各座標値は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系を指定すること。
+*/
+/**
+@fn  WKCRect WKC::WKCWebView::zoomRegionForPoint(const WKCPoint& hit, int minwidth)
+@brief 指定座標下の最適なエレメント矩形の取得。
+@param "hit" 座標
+@param "minwidth" エレメント幅サイズ下限値
+@return エレメント矩形領域
+@details
+minwidth より大きいかつ、指定座標に一番近いエレメントを取得する。
+@attention
+各座標値は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系（デスクトップ相対座標）を指定すること。@n
+矩形領域の座標はデスクトップ相対座標となる。
+*/
+/**
+@fn bool WKC::WKCWebView::addVisitedLink(const char* uri, const unsigned short* title, const struct tm* date)
+@brief 訪問したリンク情報をブラウザ・エンジンに登録する
+@param "const char* uri" 訪問先のURI
+@param "const unsigned short* title" 訪問先のタイトル文字列（未サポート）
+@param "const struct tm* date" 訪問した日付（未サポート）
+@retval !false 登録成功
+@retval false 登録失敗
+@details
+訪問したリンク情報をブラウザ・エンジンに登録し、表示履歴情報などに利用する。@n
+表示履歴の操作に関しては、 WKC::WKCWebView クラスのHistory関連APIを使うこと。@n
+@attention
+uriには、ASCIIのみまたはUTF-8のC文字列を使用すること。@n
+titleには、UTF16文字列を使用すること。
+*/
+/**
+@fn  void WKC::WKCWebView::setMaxSizeOfImageForDownsampling(int width, int height)
+@brief 縮小デコードを行う最大サイズの設定
+@param "int width" 縮小デコードを行う画像の幅
+@param "int height" 縮小デコードを行う画像の高さ
+@return なし
+@details
+未サポート
+*/
+/**
+@fn int WKC::WKCWebKitRegisterFontOnMemory(const unsigned char* memPtr)
+@brief フォントデータの登録（メモリ渡し）
+@param "const unsigned char* memPtr" ROMやRAMにマップされたフォントデータのアドレス
+@return 登録されたフォントデータのID
+@retval ==-1 登録失敗
+@retval >= 0 登録成功
+@details
+メモリ上に存在するフォントデータをブラウザエンジンに登録する。@n
+メモリにマップされたフォントデータを使うとパフォーマンスが向上する。メモリの確保と開放はアプリケーション側で行うこと。@n
+デフォルトとして、最初に登録されたフォントデータがプライマリフォントとして設定される。@n
+最大で16個のフォントデータを登録できる。@n
+*/
+/**
+@fn int WKC::WKCWebKitRegisterFontInFile(const char* filePath)
+@brief フォントデータの登録（ファイル渡し）
+@param "const char* filePath" フォントデータのファイルパス
+@return 登録されたフォントデータのID
+@retval ==-1 登録失敗
+@retval >= 0 登録成功
+@details
+ファイルとして存在するフォントデータをブラウザエンジンに登録する。@n
+デフォルトとして、最初に登録されたフォントデータがプライマリフォントとして設定される。@n
+最大で16個のフォントデータを登録できる。@n
+*/
+/**
+@fn void WKC::WKCWebKitUnregisterFonts()
+@brief 登録されたすべてのフォントデータの解除
+@param なし
+@return なし
+@details
+登録されたすべてのフォントデータを解除する。普段、 WebKitFinalize() の中で呼ばれる。@n
+*/
+/**
+@fn bool WKC::WKCWebKitSetPrimaryFont(int fontID)
+@brief 指定のIDを持つフォントデータをプライマリフォントデータとして設定する。
+@param "int fontID" フォントデータのID
+@retval !false 設定成功
+@retval false 設定失敗
+@details
+指定IDを持つフォントデータをプライマリフォントデータとして設定する。@n
+Glyph生成の時、プライマリのフォントデータを中心に検索を行う。ない場合には、登録された他のフォントデータを探す。@n
+*/
+/**
+@fn void WKC::WKCWebKitEnableScalingMonosizeFont(bool flag)
+@brief BitmapfontのGlyphをWebcore側で拡大・縮小するかどうかを設定。
+@param "bool flag" 拡大縮小をするかどうかの区別@n
+- !false Webcore側で拡大・縮小する @n
+- false Webcore側で拡大・縮小しない @n
+@retval なし
+@details
+将来拡張用のAPI
+*/
+/**
+@fn bool WKC::WKCWebKitRegisterI18NData(const void* data, unsigned int len)
+@brief I18N テーブルを設定する。
+@param "const void* data" I18N データのアドレス
+@param "unsigned int len" I18N データの長さ
+@retval !false 設定成功
+@retval false 設定失敗
+@details
+I18N テーブルを設定する。@n
+内部でコピーは行われないので、ブラウザエンジン利用中は指定したデータはアプリケーション側で常に保持する必要がある。@n
+*/
+/**
+@fn void WKC::WKCWebKitUnregisterI18NData()
+@brief I18N テーブルの登録を解除する。
+@param なし
+@return なし
+@detail
+I18N テーブルの登録を解除する。@n
+*/
+/**
+@fn const WKC::String WKC::WKCWebKitGetNodeAttributeValue(const WKC::Node* node, const char* attributeName)
+@brief Node の属性値を取得する。
+@param "const WKC::Node* node" Node オブジェクトへのポインタ
+@param "const char* attributeName" 属性名
+@return 属性値
+*/
+/**
+@fn  void WKC::WKCWebView::setScreenWidth(int width)
+@brief 実画面の横幅の設定
+@param "int width" 実画面の横幅
+@return なし
+@details
+@ref fcts_layout のレイアウト計算で利用する実画面の横幅。この設定値で文字列をワードラップさせてレイアウトを行う。
+*/
+/**
+@fn  void WKC::WKCWebView::addHistoryItem(const char* uri, const unsigned short* title)
+@brief 遷移履歴情報をブラウザエンジンに追加
+@param "const char* uri" 遷移先のURI
+@param "const unsigned short* title" 遷移先のタイトル
+@return なし
+@details
+ブラウザ起動時、アプリケーションは本APIを呼び出すことで、遷移履歴情報をブラウザエンジンに追加する。
+@attention
+uriには、ASCIIのみまたはUTF-8のC文字列を使用すること。@n
+titleには、UTF16文字列を使用すること。 
+*/
+/**
+@fn  unsigned int WKC::WKCWebView::getHistoryLength()
+@brief ブラウザエンジン遷移履歴リストの長さを取得
+@param なし
+@return 遷移履歴リストの長さ
+*/
+/**
+@fn  bool WKC::WKCWebView::getHistoryCurrentIndex(unsigned int& index)
+@brief 表示中ページがブラウザエンジン遷移履歴リストにあるインデックス値を取得
+@param "unsigned int& index" 取得するインデックス値
+@retval !false 取得成功（index = 0 ～ WKC::WKCWebView::getHistoryLength()-1）
+@retval false 取得失敗（表示中のページが存在しない、index = 不定値）
+@details
+遷移履歴復元処理時、本APIで取得したインデックスを WKC::WKCWebView::gotoHistoryItemByIndex の引数で呼び出すことで、表示中ページへの表示復元を行う。
+*/
+/**
+@fn  bool WKC::WKCWebView::getHistoryIndexByItem(WKC::HistoryItem* item, unsigned int& index)
+@brief 指定したヒストリーアイテムのインデックス値を取得
+@param "WKC::HistoryItem* item" ヒストリーアイテム
+@param "unsigned int& index" 取得するインデックス値
+@retval !false 取得成功（index = 0 ～ WKC::WKCWebView::getHistoryLength()-1）
+@retval false 取得失敗（index = 不定値）
+@details
+FrameLoaderClientWKC::shouldGoToHistoryItem の引数で与えられたヒストリーアイテムに対して本APIを呼び出すことにより遷移する先の履歴のインデックス値を知ることができる。
+*/
+/**
+@fn  void WKC::WKCWebView::removeHistoryItemByIndex(unsigned int index)
+@brief ブラウザエンジン遷移履歴リストに指定アイテムを削除
+@param "unsigned int index" 削除アイテムのインデックス値（0 ～ WKC::WKCWebView::getHistoryLength()-1）
+@return なし
+*/
+/**
+@fn  bool WKC::WKCWebView::getHistoryItemByIndex(unsigned int index, char* const uri, unsigned int& uriLen, unsigned short* const title, unsigned int& titleLen)
+@brief ブラウザエンジン遷移履歴リストから指定アイテムの情報を取得
+@param "unsigned int index" 取得するアイテムのインデックス値（0 ～ WKC::WKCWebView::getHistoryLength()-1）
+@param "char* const uri" アイテムの uri を出力するバッファーへのポインタ（アプリケーションがメモリを確保すること）
+@param "unsigned int& uriLen" 取得する uri の長さ（終端NULL含まない）
+@param "unsigned short* const title" アイテムのタイトルを出力するバッファーへのポインタタ（アプリケーションがメモリを確保すること）
+@param "unsigned int& titleLen" 取得するタイトルの長さ（終端NULL含まない）
+@retval !false 取得成功
+@retval false 取得失敗
+@details
+アプリケーションが uri や title に 0 を指定した場合、本APIはuriLen、titleLenを返却する。アプリケーションは取得した各情報の長さより uri や title 書き込み用バッファー領域を確保し、本APIを再度呼び出すこと。@n
+また、NULL終端も本API内で書き込むため、各バッファーの長さにNULL終端サイズをたして（+1）メモリを確保すること。
+*/
+/**
+@fn  void WKC::WKCWebView::gotoHistoryItemByIndex(unsigned int index)
+@brief ブラウザエンジン遷移履歴の指定アイテムにページ遷移を行う
+@param "unsigned int index" 遷移するアイテムのインデックス値（0 ～ WKC::WKCWebView::getHistoryLength()-1）
+@return なし
+@details
+遷移履歴復元処理で、前回表示していたアイテム（インデックス値は WKC::WKCWebView::getHistoryCurrentIndex より取得すること）を表示する。
+@attention
+WKC::WKCWebView::addHistoryItem を呼び出した後で本APIを呼び出すこと。また、遷移履歴復元処理以外の履歴遷移処理は本APIを使わないこと（ WKC::WKCWebView::goBackOrForward を使う）。
+*/
+
+/**
+@fn  void* WKC::WKCWebKitSSLRegisterRootCA(const char* cert, int cert_len)
+@brief ROOT CA証明書を登録する
+@param "cert" ROOT CA証明書データ。
+@param "cert_len" ROOT CA証明書データの長さ。
+@retval != 0 登録した証明書のvoidポインタ。個別に証明書の登録解除（ WKC::WKCWebKitSSLUnregisterCert() ）を実施する際に使用する。
+@retval == 0 登録失敗
+@details
+一度の呼び出し時の引数に複数個のROOT CA証明書が含まれていてもよい。@n
+複数回の呼び出しで複数個のROOT CA証明書を登録してもよい。@n
+データフォーマットはX.509 v3の証明書データ（ASN.1定義）をPEMエンコードしたものでなければならない。
+@attention
+WKC::WKCWebView::WKCWebKitInitialize を呼び出した後で本APIを呼び出すこと。
+*/
+/**
+@fn  int WKC::WKCWebKitSSLUnregisterRootCA(void* certid)
+@brief ROOT CA証明書登録を解除する
+@param "certid" 登録した証明書のvoidポインタ
+@retval < 0 登録失敗
+@retval == 0 登録成功
+@details
+登録済みのROOT CA証明書の登録を解除する。
+@attention
+certid は WKC::WKCWebKitSSLRegisterRootCA() にて取得した値でなければならない。
+*/
+
+/**
+@fn  void* WKC::WKCWebKitSSLRegisterCRL(const char* crl, int crl_len)
+@brief CRL証明書を登録する
+@param "crl" CRL証明書データ。
+@param "crl_len" CRL証明書データの長さ。
+@retval != 0 登録した証明書のvoidポインタ。個別に証明書の登録解除（ WKC::WKCWebKitSSLUnregisterCRL() ）を実施する際に使用する。
+@retval == 0 登録失敗
+@details
+一度の呼び出し時の引数に複数個のCRL証明書が含まれていてもよい。@n
+複数回の呼び出しで複数個のCRL証明書を登録してもよい。@n
+データフォーマットはX.509 v3の証明書データ（ASN.1定義）をPEMエンコードしたものでなければならない。
+@attention
+WKC::WKCWebView::WKCWebKitInitialize を呼び出した後で本APIを呼び出すこと。
+*/
+
+/**
+@fn  int WKC::WKCWebKitSSLUnregisterCRL(void* crlid)
+@brief CRL証明書登録を解除する
+@param "crlid" 登録した証明書のvoidポインタ
+@retval < 0 登録失敗
+@retval == 0 登録成功
+@details
+登録済みのCRL証明書の登録を解除する。
+@attention
+crlid は WKC::WKCWebKitSSLRegisterCRL() にて取得した値でなければならない。
+*/
+
+/**
+@fn  void* WKC::WKCWebKitSSLRegisterClientCert(const unsigned char* pkcs12, int pkcs12_len, const unsigned char* pass, int pass_len)
+@brief クライアント証明書を登録する
+@param "pkcs12" 秘密鍵と証明書をまとめたクライアント証明書。
+@param "pkcs12_len" クライアント証明書の長さ
+@param "pass" 秘密鍵のパスワード
+@param "pass_len" 秘密鍵の長さ
+@retval != 0 登録したクライアント証明書のvoidポインタ。個別に証明書の登録解除（ WKC::WKCWebKitSSLUnregisterClientCert() ）を実施する際に使用する。
+@retval == 0 登録失敗
+@details
+一度の呼び出し時の引数には１個のクライアント証明書しか含まれてはならない。@n
+複数回の呼び出しで複数個のクライアント証明書を登録してもよい。@n
+データフォーマットは秘密鍵と証明書をまとめてPKCS#12形式としたものでなければならない。
+@attention
+WKC::WKCWebView::WKCWebKitInitialize を呼び出した後で本APIを呼び出すこと。
+*/
+
+/**
+@fn  int WKC::WKCWebKitSSLUnregisterClientCert(void* certid)
+@brief クライアント証明書登録を解除する
+@param "certid" 登録したクライアント証明書のvoidポインタ
+@retval < 0 登録失敗
+@retval == 0 登録成功
+@details
+登録済みのクライアント証明書の登録を解除する。
+@attention
+certid は WKC::WKCWebKitSSLRegisterClientCert() にて取得した値でなければならない。
+*/
+
+/**
+@fn void WKC::WKCWebKitSSLSetServerCA(const char *host_w_port, const char *ca)
+@brief サーバに対応したCAを登録する
+@param "host_w_port" サーバのホスト名とポート番号を":"で繋げたもの
+@param "ca" PEM形式証明書
+@retval なし
+@details
+あるサーバ専用のCA証明書を登録する。@n
+ユーザがサーバのCA証明書を意図的に登録するとき等に用いる。
+@attention
+次回接続時より有効となる。@n
+WKC::WKCWebView::WKCWebKitInitialize を呼び出した後で本APIを呼び出すこと。
+*/
+
+/**
+@fn void WKC::WKCWebKitSSLSetAllowServerHost(const char *host_w_port)
+@brief サーバとのSSL通信を無条件に許可する
+@param "host_w_port" サーバのホスト名とポート番号を":"で繋げたもの
+@retval なし
+@details
+あるサーバとのSSL通信を無条件に許可する場合に設定する。@n
+送られてきた証明書が不正だが、ユーザの意思によりSSL通信を許可する場合等に用いる。
+@attention
+次回接続時より有効となる。@n
+WKC::WKCWebView::WKCWebKitInitialize を呼び出した後で本APIを呼び出すこと。
+*/
+
+/**
+@fn void WKC::WKCWebKitSetFileSystemProcs(const WKC::FileSystemProcs* procs)
+@brief ファイルアクセスのコールバックの設定
+@param "procs" ファイルアクセスへのコールバックの構造体
+@retval なし
+@details
+プラットフォームのファイルシステムへの処理を設定するためのコールバックを登録する。
+WKC::FileSystemProcs のメンバのコールバックはすべて実装をする必要がある。
+登録されたファイルアクセス処理は、ファイルアップロード処理、%file:///のコンテンツの読み込み、SSLから利用される。 
+@sa @ref bbb-filecontrol
+*/
+
+/**
+@fn void WKC::WKCWebKitSetTimeZone(int offset, bool isSummerTime)
+@brief TimeZone Offset設定
+@param "offset" TimeZoneのOffset値（単位:分）
+@param "isSummerTime" 現在サマータイムかどうか
+@retval なし
+@details
+プラットフォームがTimeZoneやサマータイムを認識しない場合にかぎり、UTCとのオフセット値（分）と現在サマータイムかどうかを登録する。@n
+プラットフォームがこれらを正しく認識する場合は呼び出す必要はない。@n
+offsetは、日本では540、米国ニューヨークでは(夏時間でなければ)-300となる。
+@attention
+本関数は WKC::WKCWebKitInitialize() の前で呼び出す必要がある。@n
+プラットフォームがこれらを認識しない場合、アプリケーション起動直後に必ず１回は呼び出すこと。
+*/
+
+/**
+@fn  void WKC::WKCWebKitSetResolveFilenameForDisplayProc(WKC::ResolveFilenameForDisplayProc proc)
+@brief type="file"が指定されたinput要素の描画文字列解決用関数の設定。
+@param "WKC::ResolveFilenameForDisplayProc proc" 表示文字列解決するための関数へのポインタ
+@retval なし
+@details
+type="file"が指定されたinput要素が表示する文字列を生成する関数を登録する。描画サイズによっては、登録した関数が返した文字列すべてを表示できないこともある。@n
+WKC::ResolveFilenameForDisplayProc()の引数は、アプリケーションから指定されたファイルへのフルパスへのポインタ、ファイルパスの長さ、表示文字列格納領域へのポインタ、表示文字列の長さ、表示文字列格納領域の最大長となっている。戻り値はない。このコールバック関数では、表示文字列とその長さを引数で渡された領域へ格納することを期待している。最大長の単位は文字数である。
+*/
+
+/**
+@fn  void WKC::WKCWebKitSetForceNotifyScrollProc(WKC::ForceNotifyScrollProc proc)
+@brief ブラウザエンジンスクロール処理通知用関数の設定。
+@param "WKC::ForceNotifyScrollProc proc" スクロール処理通知用関数へのポインタ
+@retval なし
+@details
+ブラウザエンジンスクロール処理通知用関数を登録する。@n
+ブラウザエンジンスクロール処理発生時、登録された関数が呼び出される。@n
+ページ先頭表示中、scrollto(0,0) を実行し、実質スクロール処理が発生していない場合でも登録された関数が呼び出される。
+*/
+
+/**
+@fn void WKC::WKCWebKitRegisterSkin(const WKCSkin* skin)
+@brief スキンの設定。
+@param "const WKCSkin* skin" WKCSkinへのポインタ
+@retval なし
+@details
+WKC::WKCSkin が保持するスキン画像データへのポインタが指す実体は、ブラウザ終了まで解放してはならない。
+*/
+
+/**
+@fn void WKC::WKCWebKitSetSystemStrings(const WKC::SystemStrings* strings)
+@brief システム文字列の設定。
+@param "const WKC::SystemStrings* strings" システム文字列
+@retval なし
+@details
+本関数でセットした文字列は、内部でコピーされる。
+@attention
+ブラウザインスタンス作成時に必ず呼び出して設定すること。 @n
+本関数を呼び出さない場合、または WKC::SystemStrings のメンバにNULLをセットして呼び出した場合、 システム文字列のデフォルト値として以下の値が使用される。 @n
+- JavaScriptのNavigatorオブジェクトのplatformプロパティ（ WKC::SystemStrings::fNavigatorPlatform ） .... ""（空文字列）
+- JavaScriptのNavigatorオブジェクトのproductプロパティ（ WKC::SystemStrings::fNavigatorProduct ） .... ""（空文字列）
+- JavaScriptのNavigatorオブジェクトのproductSubプロパティ（ WKC::SystemStrings::fNavigatorProductSub ） .... ""（空文字列）
+- JavaScriptのNavigatorオブジェクトのvendorプロパティ（ WKC::SystemStrings::fNavigatorVendor ） .... ""（空文字列）
+- JavaScriptのNavigatorオブジェクトのvendorSubプロパティ（ WKC::SystemStrings::fNavigatorVendorSub ） .... ""（空文字列）
+- システムの言語（ WKC::SystemStrings::fLanguage ） .... "en"
+- type="submit"が指定されたinput要素のボタン文字列（ WKC::SystemStrings::fButtonLabelSubmit ） .... "Submit"
+- type="reset"が指定されたinput要素のボタン文字列（ WKC::SystemStrings::fButtonLabelReset ） .... "Reset"
+- type="file"が指定されたinput要素のボタン文字列（ WKC::SystemStrings::fButtonLabelFile ） .... "Choose File"
+*/
+
+/**
+@fn void WKC::WKCWebKitSetThreadInfo(void* thread_id, void* stack_base)
+@brief エンジンスレッドの情報の設定。
+@param "void* thread_id" スレッドID
+@param "void* stack_base" スタックベースアドレス
+@retval なし
+@details
+ブラウザエンジンのAPIを呼び出すスレッドのIDとスタックベースアドレスを設定する。@n
+移植層だけでスレッドのスタックベースアドレスの取得が可能なプラットフォームの場合、本APIは呼び出す必要はない。@n
+@attention
+移植層だけでスレッドのスタックベースアドレスの取得が可能なプラットフォーム以外の場合、ブラウザインスタンス作成時に必ず呼び出して設定すること。
+*/
+
+/**
+@fn void WKC::WKCWebKitSetStackSize(unsigned int stack_size)
+@brief スタックサイズの設定。
+@param "unsigned int stack_size" スタックサイズ
+@retval なし
+@details
+本関数でセットしたスタックサイズは、ブラウザエンジン内部でのスタックオーバーフロー検出処理や WKC::WKCMemoryEventHandler::notifyStackOverflow() で通知するスタックサイズとして使用される。
+@attention
+ブラウザインスタンス作成時に必ず呼び出して設定すること。
+*/
+
+/**
+@var WKC::EEncodingDetectorNone
+@brief 言語セットなし
+*/
+
+/**
+@var WKC::EEncodingDetectorUniversal
+@brief Universal（UTF-8）
+*/
+
+/**
+@var WKC::EEncodingDetectorJapanese
+@brief 日本語
+*/
+
+/**
+@var WKC::EEncodingDetectorKorean
+@brief 韓国語
+*/
+
+/**
+@var WKC::EEncodingDetectorTraditionalChinese
+@brief 繁体字中国語
+*/
+
+/**
+@var WKC::EEncodingDetectorSimplifiedChinese
+@brief 簡体字中国語
+*/
+
+/**
+@var WKC::EEncodingDetectorSBCS
+@brief シングルバイト言語
+*/
+
+/**
+@var WKC::EEncodingDetectorAll
+@brief 全ての言語セット
+*/
+
+/**
+@fn void WKC::WKCWebKitSetEncodingDetectorLanguageSet(int languageSetFlag);
+@brief 文字エンコーディングの自動認識処理対象の言語セットの設定
+@param "int languageSetFlag" 自動認識対象の言語セット
+@retval なし
+@details
+設定した言語セットに対応する文字エンコーディングの自動認識が有効になる。 WKC::EEncodingDetectorNone を指定した場合は自動認識処理は行われない。
+@attention
+自動認識処理は、WKCの自動認識とWebKitビルトインの自動認識がある。本関数の指定はWKCの自動認識に対する指定である。
+*/
+
+/**
+@fn WKC::Node* WKC::WKCWebView::findFocusableNode(const WKC::FocusDirection direction, const WKCRect* specificRect = 0)
+@brief 次にフォーカス可能なノードの取得
+@param direction 次にフォーカス可能なノードを探すときの方向を示す
+@param specificRect ノードを探索する範囲（指定しない場合は表示画面範囲になる）
+@retval !=0 フォーカス可能なノードへのポインタ
+@retval ==0 フォーカス可能なノードを発見できない
+@details
+このメソッドを呼び出した時点でフォーカスされているノードを基点にし、次にフォーカス可能なノードをdirectionをヒントにして取得する。
+specificRect の X/Y 座標は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系を指定すること。
+*/
+
+/**
+@fn WKC::Node* WKC::WKCWebView::findFocusableNodeInRect(const WKC::FocusDirection direction, const WKCRect* rect)
+@brief 矩形領域内のフォーカス可能なノードの取得
+@param direction 指定された矩形の探査開始方向やノードの優先度を決定するための指定
+@param rect ノードを探索する範囲
+@retval !=0 フォーカス可能なノードへのポインタ
+@retval ==0 フォーカス可能なノードを発見できない
+@details
+矩形領域内のフォーカス可能なノードをdirectionをヒントにして取得する。@n
+directionが WKC::FocusDirectionUp のときはノードのオーダーを逆から、FocusDirectionがそれ以外ならオーダーにしたがって探査を開始する。@n
+WKC::FocusDirectionUp , WKC::FocusDirectionDown のときは矩形領域内に最初に見つかったフォーカス可能ノードを返す。 @n
+WKC::FocusDirectionLeft は最初に見つかった、矩形領域内のもっとも左のフォーカス可能ノードを返す。@n
+WKC::FocusDirectionRight は最初に見つかった、矩形領域内のもっとも左のフォーカス可能ノードを返す。@n
+rect の X/Y 座標は WKC::WKCWebView::notifyMouseDown (Move, Up) と同じ座標系を指定すること。
+*/
+
+/**
+@fn bool WKC::WKCWebView::setFocusedNode(WKC::Node* node)
+@brief フォーカスの設定
+@param node フォーカスをあてるノード
+@retval !=false 成功
+@retval ==false 失敗
+@details
+node はフォーカス可能なノードを指定する必要がある。@n
+node にNULLを指定した場合はアンフォーカスを行い、trueを返す。@n
+フォーカスがすでにあたっているノードへ再度あてようとした場合、trueを返す。
+*/
+
+/**
+@fn void WKC::WKCWebView::setScrollPositionForOffscreen(const WKCPoint& scrollPosition)
+@brief Offscreen描画位置を補正するためのスクロール位置の設定
+@param scrollPosition スクロール位置
+@retval なし
+@details
+Offscreen描画時にScroll位置を補正処理に利用するときに使用する値を設定する。@n
+scrollPosition は WKC::WKCWebView::scrollPosition()が返す値が渡されることを期待している。@n
+WKC::WKCWebView::notifyPaintOffscreen()呼出し直前にだけ呼び出すことが可能である。@n
+WKCOffscreen5650Tiny版でしか動作しない。WKCOffscreen5650Tiny以外のフォーマットのときに呼び出してはいけない。
+*/
+
+/**
+@fn void WKC::WKCWebKitSetScreenDeviceParams(const WKC::ScreenDeviceParams& params)
+@brief スクリーンデバイス情報の設定
+@param params スクリーンデバイス情報
+@retval なし
+@details
+スクリーンデバイス情報として、スクリーンサイズ、有効スクリーンサイズ、RGBの一つの色深度、ピクセルの色深度、デバイスがモノクロームかどうかの情報を設定する。@n
+ブラウザ初期化時に必ず設定すること。デバイスの情報を変更する必要がある場合、本APIを使用して再設定してよい。
+*/
+
+/**
+@struct WKC::TMemoryRangeInfo_
+@brief TMemoryManagerのメモリ使用領域情報を格納するための構造体
+*/
+
+/**
+@typedef struct WKC::TMemoryRangeInfo_ WKC::TMemoryRangeInfo
+@brief WKC::TMemoryRangeInfo の型定義。
+*/
+
+/**
+@var void* WKC::TMemoryRangeInfo::fHead
+@brief 使用メモリ領域の先頭アドレス
+*/
+
+/**
+@var void* WKC::TMemoryRangeInfo::fTail
+@brief 使用メモリ領域の終端アドレス
+*/
+
+/**
+@var unsigned int WKC::TMemoryRangeInfo::fSize
+@brief 使用メモリ領域のサイズ
+*/
+
+/**
+@struct WKC::TMemoryDetailedInfo_
+@brief TMemoryManagerのメモリブロック情報を格納するための構造体
+*/
+
+/**
+@typedef struct WKC::TMemoryDetailedInfo_ WKC::TMemoryDetailedInfo
+@brief WKC::TMemoryDetailedInfo の型定義。
+*/
+
+/**
+@var void* WKC::TMemoryDetailedInfo::fAdr
+@brief メモリブロックの先頭アドレス
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fRequestedSize
+@brief メモリ確保の際に要求されたメモリサイズ
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fSize
+@brief 実際にメモリを利用しているサイズ
+@details
+fBlockTypeに WKC::EMemoryBlockTypeFreed が設定されている場合、本メンバには0が設定される。@n
+メモリブロックのサイズを求めたい場合は、次ブロックの先頭アドレスを使って算出すること。
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fRequestedRangeType [ WKC::MemoryRangeType ]
+@brief TMemoryManagerのメモリ使用領域の種別
+@details
+値は列挙型 WKC::MemoryRangeType のいずれかの列挙値@n
+TMemoryManagerにメモリ割り当て要求をしたときのメモリ領域
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fDefaultRangeType [ WKC::MemoryRangeType ]
+@brief TMemoryManagerのメモリ使用領域の種別
+@details
+値は列挙型 WKC::MemoryRangeType のいずれかの列挙値@n
+TMemoryManagerにおいてすでに割り当てられているメモリ領域@n
+本メンバとメンバfRequestedRangeTypeの値が異なる場合がある@n
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fBlockType [ WKC::MemoryBlockType ]
+@brief メモリブロック情報
+@details
+値は列挙型 WKC::MemoryBlockType の列挙値のいくつかの値の和をとったもの
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fRequestedAlignment
+@brief メモリ確保の際に要求されたメモリアラインメント
+*/
+
+/**
+@var unsigned int WKC::TMemoryDetailedInfo::fAlignment
+@brief 実際のメモリアラインメント
+*/
+
+/**
+@struct WKC::TMemoryInfo_
+@brief TMemoryManagerのメモリ情報を格納するための構造体
+*/
+
+/**
+@typedef struct WKC::TMemoryInfo_ WKC::TMemoryInfo
+@brief WKC::TMemoryInfo の型定義。
+*/
+
+/**
+@var unsigned int WKC::TMemoryInfo::fAlignment
+@brief TMemoryManagerのメモリアラインメント
+*/
+
+/**
+@var unsigned int WKC::TMemoryInfo::fPage
+@brief TMemoryManagerのページサイズ
+*/
+
+/**
+@var TMemoryRangeInfo WKC::TMemoryInfo::fSystem
+@brief TMemoryManagerがシステム側から受け取ったメモリ領域情報
+*/
+
+/**
+@var TMemoryRangeInfo WKC::TMemoryInfo::fRangeArray[WKC::EMemoryRangeTypes]
+@brief TMemoryManager内で管理されているメモリ領域の配列
+*/
+
+/**
+@var unsigned int WKC::TMemoryInfo::fNumDetailedArray
+@brief fDetailedPtrArrayの有効要素数
+*/
+
+/**
+@var TMemoryDetailedInfo WKC::TMemoryInfo::fDetailedArray[WKC::KMemoryMaxNumDetailedMemoryArray]
+@brief メモリブロック情報の配列
+@details
+本メンバはfDetailedPtrArrayのためのものであるため、参照しないこと@n
+*/
+
+/**
+@var TMemoryDetailedInfo* WKC::TMemoryInfo::fDetailedPtrArray[WKC::KMemoryMaxNumDetailedMemoryArray]
+@brief メモリブロック情報の配列
+@details
+先頭アドレスでソートされたメモリブロック情報が格納されている@n
+*/
+
+/**
+@enum WKC::MemoryRangeType
+@brief TMemoryManagerのメモリ使用領域の種別
+*/
+
+/**
+@var WKC::EMemoryRangeTypeNormal
+@brief 通常領域
+@details
+通常、TCMallocのメモリ割り当て領域として使用される@n
+特定割り当てメモリ領域の配置を終了した後、残りのメモリ領域がすべて割り当てられる
+*/
+
+/**
+@var WKC::EMemoryRangeTypeJSHeap
+@brief JS Heap向け領域
+@details
+JavaScriptのHeap向けメモリ割り当て領域として使用される
+*/
+
+/**
+@var WKC::EMemoryRangeTypeJSStack
+@brief JS Stack向け領域
+@details
+JavaScriptのStack向けメモリ割り当て領域として使用される
+*/
+
+/**
+@var WKC::EMemoryRangeTypeHash
+@brief TCMalloc用Hash向け領域
+@details
+TCMalloc用Hash向けメモリ割り当て領域として使用される
+*/
+
+/**
+@var WKC::EMemoryRangeTypeSpan
+@brief TCMalloc用Span向け領域
+@details
+TCMalloc用Span向けメモリ割り当て領域として使用される
+*/
+
+/**
+@var WKC::EMemoryRangeTypeThreadHeap
+@brief TCMalloc用TheadHeap向け領域
+@details
+TCMalloc用TheadHeap向けメモリ割り当て領域として使用される
+*/
+
+/**
+@var WKC::EMemoryRangeTypeManagement
+@brief TMemoryManagerの管理領域
+@details
+TMemoryManager内のメモリブロックを管理するための構造体を配置するための領域@n
+本メモリ領域のサイズは、システムから与えられたメモリサイズ、および構造体サイズ等により自動計算される
+*/
+
+/**
+@var WKC::EMemoryRangeTypes
+@brief 列挙値の数を表す
+@details
+ターミネータの役目を果たす
+*/
+
+/**
+@enum WKC::MemoryBlockType
+@brief メモリブロック情報
+*/
+
+/**
+@var WKC::EMemoryBlockTypeNone
+@brief 初期化用
+@details
+他の列挙値との和をとることはなく、単独で使用される
+*/
+
+/**
+@var WKC::EMemoryBlockTypeAvailable
+@brief 該当メモリブロックは利用可能
+*/
+
+/**
+@var WKC::EMemoryBlockTypeUsed
+@brief 該当メモリブロックは使用中
+*/
+
+/**
+@var WKC::EMemoryBlockTypeFreed
+@brief 該当メモリブロックは解放済み
+*/
+
+/**
+@var WKC::EMemoryBlockTypeHeap
+@brief 該当メモリブロックはHeapとして使用されている
+*/
+
+/**
+@var WKC::EMemoryBlockTypeStack
+@brief 該当メモリブロックはStackとして使用されている
+*/
+
+/**
+@var WKC::EMemoryBlockTypeAligned
+@brief 該当メモリブロックは特定のメモリアラインメントが設定されている
+*/
+
+/**
+@var WKC::EMemoryBlockTypeMask
+@brief 列挙値のマスク用
+*/
+
+/**
+@fn bool WKC::WKCWebView::getTMemoryInfo(WKC::TMemoryInfo& memInfo);
+@brief TMemoryManagerのメモリ情報を取得する
+@param memInfo TMemoryManagerのメモリ情報を格納する構造体
+@retval !=false 成功
+@retval ==false 失敗
+@details
+TMemoryManagerのメモリ情報を取得し、memInfoに格納する@n
+本関数はwkcconfig.hにある WKC_ENABLE_USED_MEMORY_INFO を定義した場合に有効になる@n
+デバッグ用に使用すること@n
+*/
+
+/**
+@fn void WKC::WKCWebView::jsHeapStatistics(WKC::WKCWebKitCollectorHeapStatistics& stat);
+@brief JS Heapのメモリ情報を取得する
+@param stat JS Heapのメモリ情報を格納する構造体
+@retval なし
+@details
+JS Heapのメモリの使用状況を取得し、statに格納する@n
+JSC::HeapクラスがJS Heapを管理しており、TMemoryManagerもしくはTCMallocにメモリ割り当てを行っている@n
+@li WKC::WKCWebKitCollectorHeapStatistics::numBlockInfo : 配列blockInfoの有効要素数
+@li WKC::WKCWebKitCollectorHeapStatistics::blockInfo : メモリブロック情報の配列（ WKC::WKCWebKitCollectorHeapBlockInfo 構造体の配列）
+@li WKC::WKCWebKitCollectorHeapBlockInfo::size : メモリブロックのサイズ
+- TMemoryManager側にメモリを割り当てる場合、64kのメモリメモリアラインメントで64kbytesのメモリを要求する@n
+- TCMalloc側にメモリを割り当てる場合、64kのメモリアラインメントを満たすため128kbytes+4bytesのメモリを要求する@n
+@li WKC::WKCWebKitCollectorHeapBlockInfo::type : JSC::Heapがどのインスタンスで管理されているかを表す
+- WKC::ECollectorHeapTypeJSGlobalData : JSC::JSGlobalDataで管理されている@n
+- WKC::ECollectorHeapTypeJSDOMWindowBase : WebCore::JSDOMWindowBaseで管理されている@n
+@li WKC::WKCWebKitCollectorHeapBlockInfo::flag : 以下のフラグのビットOR
+- WKC::ECollectorHeapBlockInfoFlagPeer : TMemoryManagerにメモリが割り当てられている@n
+- WKC::ECollectorHeapBlockInfoFlagTCMalloc : TCMallocにメモリが割り当てられている@n
+- WKC::ECollectorHeapBlockInfoFlagBackup : メモリ不足時の対策用の予備ブロック@n
+- WKC::ECollectorHeapBlockInfoFlagNoCellUsed : JSセルが一つも使われていない@n
+@li WKC::WKCWebKitCollectorHeapBlockInfo::usedCellCount : 使用中JSセルの数
+*/
+
+/*@}*/

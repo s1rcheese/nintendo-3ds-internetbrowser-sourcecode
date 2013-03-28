@@ -1,0 +1,463 @@
+/*
+ *
+ * Copyright(c) 2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/helpers/ChromeClientIf.h
+*/
+/*@{*/
+/**
+@class WKC::ChromeClientIf 
+@brief ブラウザのコンテンツ表示画面に対するイベントを通知するクラス。
+*/
+/**
+@fn  static ChromeClientIf* WKC::ChromeClientIf::create(WKCWebViewPrivate* view)
+@brief クロムクライアントの生成。
+@param "WKCWebViewPrivate* view" WKCWebViewPrivateへのポインタ
+@retval ChromeClientIf* クロムクライアントへのポインタ
+*/
+/**
+@fn  WKC::ChromeClientIf::~ChromeClientIf()
+@brief デストラクタ。
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::chromeDestroyed()
+@brief クロムの破棄の通知。
+@return なし
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::setWindowRect(const WKCFloatRect&)
+@brief ウィンドウ領域の矩形の設定。
+@param WKCFloatRect& 矩形情報への参照
+@return なし
+*/
+/**
+@fn  virtual WKCFloatRect WKC::ChromeClientIf::windowRect()
+@brief ウィンドウ領域の矩形の取得。
+@retval WKCFloatRect ウィンドウの矩形情報
+*/
+/**
+@fn  virtual WKCFloatRect WKC::ChromeClientIf::pageRect()
+@brief ページ領域の矩形の取得。
+@retval WKCFloatRect ページの矩形情報
+*/
+/**
+@fn  virtual float WKC::ChromeClientIf::scaleFactor()
+@brief ズームの倍率の取得の要求。
+@retval float ズーム倍率
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::focus()
+@brief フォーカスの通知。
+@return なし
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::unfocus()
+@brief アンフォーカスの通知。
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ChromeClientIf::canTakeFocus(WKC::FocusDirection)
+@brief UI側のコンポネントへのフォーカス移動の可否への確認
+@param WKC::FocusDirection フォーカス移動の方向
+@retval !false フォーカスを移動する。
+@retval false フォーカスを移動しない。
+@details
+コンテンツからUI側のコンポネントへフォーカスを切り替えるかどうかの確認。 @n
+戻り値として、!falseを返すと現在のコンテンツからフォーカスがなくなるので、 @n
+任意のUIのコンポーネントにフォーカスを当てること。 @n
+コンテンツからUIにフォーカスを移さない場合は、常に false を返す。
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::takeFocus(WKC::FocusDirection)
+@brief (TBD) implement description
+@param WKC::FocusDirection (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::focusedNodeChanged(WKC::Node*)
+@brief (TBD) implement description
+@param WKC::Node* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual WKC::Page* WKC::ChromeClientIf::createWindow(WKC::Frame*, const WKC::FrameLoadRequest&, const WKC::WindowFeatures&)
+@brief ウィンドウの生成の要求。
+@param WKC::Frame* WKC::Frameへのポインタ
+@param "const WKC::FrameLoadRequest&" WKC::FrameLoadRequestへの参照
+@param "const WKC::WindowFeatures&" WKC::WindowFeaturesへの参照
+@retval WKC::Page* WKC::Pageへのポインタ
+@details
+window.openの処理によりウィンドウを生成する場合に呼び出される。@n
+新しい、 WKC::WKCWebView を生成し、そのウェブビューの WKC::Page を返す。
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::show()
+@brief ウィンドウの表示の要求。
+@return なし
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::canRunModal()
+@brief モーダルダイアログの表示可否の確認。
+@retval !false モーダルダイアログ表示可
+@retval false モーダルダイアログ表示不可
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::runModal()
+@brief モーダルダイアログの表示の要求。
+@return なし
+@cond WKC_PRIVATE_DOCUMENT
+@details
+WKC::ChromeClientIf::webView() で取得できるウェブビューをモーダルダイアログとして表示する。 @n
+アプリケーションは、他のウェブビューを操作できないように実装する必要がある。
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::setToolbarsVisible(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ChromeClientIf::toolbarsVisible()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::setStatusbarVisible(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ChromeClientIf::statusbarVisible()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENTv
+@fn  virtual void WKC::ChromeClientIf::setScrollbarsVisible(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ChromeClientIf::scrollbarsVisible()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::setMenubarVisible(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ChromeClientIf::menubarVisible()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::setResizable(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::addMessageToConsole(WKC::MessageSource source, WKC::MessageType type,  WKC::MessageLevel level, const WKC::String& message,  unsigned int lineNumber, const WKC::String& sourceID)
+@brief (TBD) implement description
+@param source (TBD) implement description
+@param type (TBD) implement description
+@param level (TBD) implement description
+@param message (TBD) implement description
+@param lineNumber (TBD) implement description
+@param sourceID (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::canRunBeforeUnloadConfirmPanel()
+@brief beforeunloadイベントの確認ダイアログ表示の可否の確認。
+@retval !false イベントの確認ダイアログ表示可
+@retval false イベントの確認ダイアログ表示不可
+@cond WKC_PRIVATE_DOCUMENT
+@details
+(TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::runBeforeUnloadConfirmPanel(const WKC::String& message, WKC::Frame* frame)
+@brief beforeunloadイベントの確認ダイアログ表示の要求。
+@param "WKC::String& message" メッセージ文字列への参照
+@param "WKC::Frame* frame" WKC::Frameへのポインタ
+@retval !false unloadを発行する
+@retval false unloadの発行をしない
+@cond WKC_PRIVATE_DOCUMENT
+@details
+(TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::closeWindowSoon()
+@brief ウィンドウのクローズの要求。
+@return なし
+@details
+window.closeの処理によりウィンドウがクローズされる場合に呼び出される。
+@attention
+::WKC::ChromeClientIfは::WKC::WKCWebViewのメンバであるため、このコールバック内で、クローズ対象の::WKC::WKCWebViewを破棄してはならない。@n
+このコールバックでタイマーを設定し、タイマーが発火したタイミングで::WKC::WKCWebViewを破棄する必要がある。
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::runJavaScriptAlert(WKC::Frame*, const WKC::String&)
+@brief JavaScriptのアラートダイアログの表示の要求。
+@param WKC::Frame* WKC::Frameへのポインタ
+@param "const WKC::String&" アラートメッセージ文字列への参照
+@return なし
+@cond WKC_PRIVATE_DOCUMENT
+@details
+(TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::runJavaScriptConfirm(WKC::Frame*, const WKC::String&)
+@brief JavaScriptのコンファームダイアログの表示の要求。
+@param WKC::Frame* WKC::Frameへのポインタ
+@param "const WKC::String&" コンファームメッセージ文字列への参照
+@retval !false 肯定応答
+@retval false 否定応答
+@cond WKC_PRIVATE_DOCUMENT
+@details
+(TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::runJavaScriptPrompt(WKC::Frame*, const WKC::String& message, const WKC::String& defaultValue, WKC::String& result)
+@brief JavaScriptのプロンプトダイアログの表示の要求。
+@param WKC::Frame* WKC::Frameへのポインタ
+@param "const WKC::String& message" プロンプトメッセージ文字列への参照
+@param "const WKC::String& defaultValue" 初期表示文字列への参照
+@param "WKC::String& result" 入力結果文字列への参照
+@retval !false 肯定応答
+@retval false 否定応答
+@cond WKC_PRIVATE_DOCUMENT
+@details
+(TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::setStatusbarText(const WKC::String&)
+@brief (TBD) implement description
+@param WKC::String& (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::shouldInterruptJavaScript()
+@brief スクリプト実行の割り込み停止の確認要求。
+@return なし
+*/
+/**
+@fn  virtual bool WKC::ChromeClientIf::tabsToLinks() const
+@brief TABキーのフォーカス移動の可否の確認要求
+@retval !false フォーカス移動可
+@retval false フォーカス移動不可
+@details
+本APIの戻り値に!falseを設定後、 WKC::WKCWebView::notifyKeyPress() 
+および WKC::WKCWebView::notifyKeyRelease() で::EKeyTabを送信するとフォーカス移動が行われる。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKCRect WKC::ChromeClientIf::windowResizerRect() const
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::repaint(const WKCRect&, bool contentChanged, bool immediate = false, bool repaintContentOnly = false)
+@brief 再描画の要求。
+@param WKCRect& 再描画対象の矩形へ参照
+@param "bool contentChanged" 再描画要求の種類 @n
+- !false コンテンツの内容変更による再描画
+- false コンテンツの内容変更以外の再描画
+@param "bool immediate = false" 更新タイミング @n
+- !false 即時
+- false 任意
+@param "bool repaintContentOnly = false"  (TBD) implement description
+@return なし
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::scroll(const WKCSize& scrollDelta, const WKCRect& rectToScroll, const WKCRect& clipRect)
+@brief スクロールの要求。
+@param "const WKCSize& scrollDelta" スクロール移動量
+@param "const WKCRect& rectToScroll" スクロール対象の矩形への参照
+@param "const WKCRect& clipRect" クリッピング矩形への参照
+@return なし
+@details
+画面をスクロールするためには本関数内で WKC::WKCWebView::notifyScrollOffscreen() を呼ぶ必要がある。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKCPoint WKC::ChromeClientIf::screenToWindow(const WKCPoint&) const
+@brief (TBD) implement description
+@param WKCPoint& (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKCRect WKC::ChromeClientIf::windowToScreen(const WKCRect&) const
+@brief (TBD) implement description
+@param WKCRect& (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual PlatformPageClient WKC::ChromeClientIf::platformPageClient() const
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::contentsSizeChanged(WKC::Frame*, const WKCSize&) const
+@brief コンテンツのサイズ変更の通知。
+@param WKC::Frame* WKC::Frameへのポインタ
+@param "const WKCSize&" 変更後のサイズへの参照
+@return なし
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::scrollbarsModeDidChange() const
+@brief スクロールバーのモード変更の通知。
+@return なし
+@attention
+未サポート。現状の実装では呼ばれない。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::mouseDidMoveOverElement(const WKC::HitTestResult&, unsigned modifierFlags)
+@brief (TBD) implement description
+@param WKC::HitTestResult& (TBD) implement description
+@param modifierFlags (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::setToolTip(const WKC::String&, WKC::TextDirection)
+@brief (TBD) implement description
+@param WKC::String& (TBD) implement description
+@param  WKC::TextDirection (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::print(WKC::Frame*)
+@brief (TBD) implement description
+@param WKC::Frame* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::exceededDatabaseQuota(WKC::Frame*, const WKC::String&)  virtual
+@brief (TBD) implement description
+@param DATABASE (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn virtual void WKC::ChromeClientIf::reachedMaxAppCacheSize(int64_t spaceNeeded)
+@brief (TBD) implement description
+@param OFFLINE_WEB_APPLICATIONS (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::runOpenPanel(WKC::Frame*, WKC::FileChooser*)
+@brief ファイル選択ダイアログの表示の要求。
+@param WKC::Frame* WKC::Frameへのポインタ
+@param WKC::FileChooser* WKC::FileChooserへのポインタ
+@return なし
+@details
+@ref bbb-fileselect 参照。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::formStateDidChange(const WKC::Node*)
+@brief (TBD) implement description
+@param WKC::Node* (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual PassOwnPtr<WKC::HTMLParserQuirks> WKC::ChromeClientIf::createHTMLParserQuirks()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::ChromeClientIf::setCursor(WKC::PlatformCursorHandle)
+@brief (TBD) implement description
+@param WKC::PlatformCursorHandle (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::ChromeClientIf::scrollRectIntoView(const WKCRect&, const WKC::ScrollView*) const
+@brief コンテンツ内でのスクロール発生の通知。
+@param WKCRect& スクロール先の座標
+@param WKC::ScrollView* ScrollViewへのポインタ
+@return なし
+@details
+フラグメントジャンプやJavaScriptからのスクロール要求により呼び出される。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::ChromeClientIf::requestGeolocationPermissionForFrame(WKC::Frame*, WKC::Geolocation*)
+@brief (TBD) implement description
+@param WKC::Frame* (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  WKC::ChromeClientIf::ChromeClientIf(WKCWebViewPrivate* view)
+@brief (TBD) implement description
+@param view (TBD) implement description
+*/
+/**
+@fn  bool WKC::ChromeClientIf::construct()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/*@}*/

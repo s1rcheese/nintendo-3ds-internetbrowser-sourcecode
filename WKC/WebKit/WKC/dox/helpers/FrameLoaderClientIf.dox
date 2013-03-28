@@ -1,0 +1,943 @@
+/*
+ *
+ * Copyright(c) 2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/helpers/FrameLoaderClientIf.h
+*/
+/*@{*/
+/**
+@namespace WKC
+@brief NetFrontBrowser v4.0 WKCのAPIレイヤのネームスペース。
+*/
+/**
+@class WKC::FrameLoaderClientIf 
+@brief フレーム読み込み時のイベントを通知するクラス。
+*/
+/**
+@fn  static FrameLoaderClientIf* WKC::FrameLoaderClientIf::create(WKCWebFramePrivate*)
+@brief フレームローダークライアントの生成。
+@param WKCWebFramePrivate* WKC::WKCWebFramePrivateへのポインタ
+@retval WKC::FrameLoaderClientIf* フレームローダークライアントへのポインタ
+@details
+WKC::FrameLoaderClientIfを生成し、そのポインタを返す。
+*/
+/**
+@fn  virtual WKC::FrameLoaderClientIf::~FrameLoaderClientIf()
+@brief デストラクタ。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::frameLoaderDestroyed()
+@brief フレームローダークライアントの破棄の通知。
+@return なし
+*/
+/**
+@fn  WKCWebFrame* WKC::FrameLoaderClientIf::webFrame() const
+@brief ウェブフレームの取得。
+@retval WKC::WKCWebFrame* ウェブフレームへのポインタ
+*/
+/**
+@fn  virtual bool WKC::FrameLoaderClientIf::hasWebView() const
+@brief ウェブビューを保持の確認。
+@retval !false ウェブビューを保持している
+@retval	false ウェブビューを保持していない
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::makeRepresentation(WKC::DocumentLoader*)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::forceLayout()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::forceLayoutForNonHTML()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::setCopiesOnScroll()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::detachedFromParent2()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::detachedFromParent3()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::assignIdentifierToInitialRequest(unsigned long identifier, WKC::DocumentLoader*, const WKC::ResourceRequest&)
+@brief (TBD) implement description
+@param identifier (TBD) implement description
+@param  WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchWillSendRequest(WKC::DocumentLoader*, unsigned long  identifier, WKC::ResourceRequest&, const WKC::ResourceResponse& redirectResponse)
+@brief リクエストの送信の通知。
+@param WKC::DocumentLoader* WKC::DocumentLoaderへのポインタ
+@param "unsigned long  identifier" リクエストの識別子
+@param WKC::ResourceRequest& リクエストオブジェクトへの参照
+@param "const WKC::ResourceResponse& redirectResponse" リダイレクトオブジェクトへの参照
+@return なし
+@details
+リクエスト送信前のタイミングに通知される。@n
+リダイレクトによるリクエストの送信の場合は、redirectResponseにレスポンスデータが設定される。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::FrameLoaderClientIf::shouldUseCredentialStorage(WKC::DocumentLoader*, unsigned long identifier)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReceiveAuthenticationChallenge(WKC::DocumentLoader*, unsigned long identifier, const WKC::AuthenticationChallenge&)
+@brief HTTP 認証の通知。
+@param WKC::DocumentLoader* WKC::DocumentLoaderへのポインタ
+@param "unsigned long  identifier" リクエストの識別子
+@param "constWKC::AuthenticationChallenge&" 認証情報への参照
+@return なし
+@details
+リクエストしたURLにHTTP認証が必要な場合に通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidCancelAuthenticationChallenge(WKC::DocumentLoader*, unsigned long  identifier, const WKC::AuthenticationChallenge&)
+@brief  HTTP 認証のキャンセルの通知。
+@param WKC::DocumentLoader* WKC::DocumentLoaderへのポインタ
+@param "unsigned long  identifier" リクエストの識別子
+@param "constWKC::AuthenticationChallenge&" 認証情報への参照
+@return なし
+@details
+未サポート。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReceiveResponse(WKC::DocumentLoader*, unsigned long  identifier, const WKC::ResourceResponse&)
+@brief HTTP レスポンスの通知。
+@param WKC::DocumentLoader* WKC::DocumentLoaderへのポインタ
+@param "unsigned long  identifier" リクエストの識別子
+@param "const WKC::ResourceResponse&" レスポンスオブジェクトへの参照
+@return なし
+@details
+HTTP レスポンスが受信した場合に通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchWillReceiveData(WKC::ResourceLoader*, int length)
+@brief データ受信の通知。
+@param WKC::ResourceLoader* WKC::ResourceLoaderへのポインタ
+@param "int length" データ長
+@return なし
+@details
+データが受信した場合に通知される。@n
+データの種類として、HTTP ヘッダー、各種生リソースデータ（HTML文書、イメージ、CSS、JSファイルなど）、Data:指定データがある。@n
+本通知処理にて、 WKC::ResourceLoader::cancel() を呼び出すことで、該当データの受信を中断できる。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::notifySSLStateChange(WKC::ResourceHandle* handle, int state)
+@brief SSL状態の通知
+@param WKC::ResourceHandle* WKC::ResourceHandleへのポインタ
+@param "int state" SSL状態
+@return なし
+@details
+SSLの状態が変更した場合に通知される。@n
+この中で受信した証明書Chainに問題がある場合は、ユーザに確認を促すこと。
+*/
+/**
+@fn  virtual int WKC::FrameLoaderClientIf::requestSSLClientCertSelect(WKC::ResourceHandle*, const char* in_requester, WKC::ClientCertificate* in_certs, int in_num)
+@brief SSLクライアント証明書選択
+@param WKC::ResourceHandle* WKC::ResourceHandleへのポインタ
+@param "const char* requester" クライアント証明書の要求者情報
+@param "WKC::ClientCertificate* certs" クライアント証明書リストへのvoidポインタ
+@param "int num" クライアント証明書の数
+@return -1 拒絶
+@return >= 選択されたクライアント証明書のIndex番号
+@details
+クライアント証明書がサーバより要求され、登録してある候補が該当する場合に通知される。@n
+本通知でユーザにどのクライアント証明書を使用するか選択させる。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReceiveContentLength(WKC::DocumentLoader*, unsigned long identifier, int lengthReceived)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFinishLoading(WKC::DocumentLoader*, unsigned long  identifier)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFailLoading(WKC::DocumentLoader*, unsigned long  identifier, const WKC::ResourceError&)
+@brief インクルージョンの取得エラーの通知。
+@param WKC::DocumentLoader* WKC::DocumentLoaderへのポインタ
+@param "unsigned long  identifier" リクエストの識別子
+@param "const WKC::ResourceError&" エラーオブジェクトへの参照
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::FrameLoaderClientIf::dispatchDidLoadResourceFromMemoryCache(WKC::DocumentLoader*, const WKC::ResourceRequest&, const WKC::ResourceResponse&, int length)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidLoadResourceByXMLHttpRequest(unsigned long, const WKC::ScriptString&)
+@brief (TBD) implement description
+@param long (TBD) implement description
+@param WKC::ScriptString& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidHandleOnloadEvents()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReceiveServerRedirectForProvisionalLoad()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidCancelClientRedirect()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchWillPerformClientRedirect(const WKC::KURL&, double, double)
+@brief (TBD) implement description
+@param WKC::KURL& (TBD) implement description
+@param  double (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidChangeLocationWithinPage()
+@brief 同一ページ内フラグメントジャンプ完了通知。
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidPushStateWithinPage()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReplaceStateWithinPage()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidPopStateWithinPage()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchWillClose()
+@brief ページ取得時における、現在のドキュメント破棄の通知。
+@return なし
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReceiveIcon()
+@brief Faviconの取得の通知。
+@return なし
+@details
+@ref bbb-favicon
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidStartProvisionalLoad()
+@brief ページの取得開始。
+@return なし
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidReceiveTitle(const WKC::String&)
+@brief タイトルの取得の通知。
+@param WKC::String& タイトル文字列への参照
+@return なし
+@details
+取得したコンテンツに<title>が指定されている場合に通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::transitionToCommittedForNewPage()
+@brief ページのデータの取得準備完了の通知。
+@return なし
+@details
+データの取得準備が正常に完了された場合に通知される。@n
+dispatchDidCommitLoad() より早いタイミングで通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidCommitLoad()
+@brief ページのデータの取得開始の通知。
+@return なし
+@details
+データの取得が正常に開始された場合に通知される。@n
+エラーが発生し、データの取得が開始できない場合は、 dispatchDidFailProvisionalLoad() が通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFailProvisionalLoad(const WKC::ResourceError&)
+@brief ページの取得開始の失敗の通知。
+@param WKC::ResourceError& エラーオブジェクトへの参照
+@return なし
+@details
+dispatchDidStartProvisionalLoad() の通知前にエラーが発生した場合に通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFailLoad(const WKC::ResourceError&)
+@brief ページの取得エラーの通知。
+@param WKC::ResourceError& エラーオブジェクトへの参照
+@return なし
+@details
+dispatchDidFinishLoad() の通知前にエラーが発生した場合に通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFinishDocumentLoad()
+@brief ページのパース完了の通知。
+@return なし
+@details
+ページのパースが完了した場合に通知される。@n
+dispatchDidFinishLoad() より前のタイミングに通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFinishLoad()
+@brief ページの取得完了の通知。
+@return なし
+@details
+ページの取得が正常に完了した場合に通知される。@n
+処理途中でエラーが発生し取得が完了しなかった場合は、 dispatchDidFailLoad() が通知される。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFirstLayout()
+@brief ページの最初の描画の通知。
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidFirstVisuallyNonEmptyLayout()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual bool WKC::FrameLoaderClientIf::dispatchWillAcceptCookie(const WKC::String& firstparty_host, const WKC::String& cookie_domain);
+@brief クッキー受諾の可否の確認。
+@param "const WKC::String& firstparty_host" ファーストパーティークッキーのホスト名の文字列
+@param "const WKC::String& cookie_domain" クッキーのドメイン名の文字列
+@retval !false 受諾する
+@retval false 受諾しない
+*/
+/**
+@fn  virtual WKC::Frame* WKC::FrameLoaderClientIf::dispatchCreatePage()
+@brief ページ生成の通知。
+@retval WKC::Frame* WKC::Frameへのポインタ
+@details
+dispatchDecidePolicyForNewWindowAction() の後に通知される。@n
+新しい WKC::WKCWebView を生成し、その WKC::Frame へのポインタを返す。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchShow()
+@brief ページ表示の通知。
+@return なし
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDecidePolicyForMIMEType(WKC::FramePolicyFunction&, const WKC::String& MIMEType, const WKC::ResourceRequest&)
+@brief マイムタイプでの処理方法の確認の要求。
+@param "WKC::FramePolicyFunction&" WKC::FramePolicyFunctionへの関数ポインタ
+@param "const WKC::String& MIMEType" マイムタイプの文字列への参照
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@return なし
+@details
+処理方法に応じて WKC::FramePolicyFunction() に、以下の値を設定する。@n
+- WKC::PolicyUse コンテンツの表示を行う @n
+- WKC::PolicyDownload コンテンツの表示を行わず、コンテンツのダウンロードを行う ( @ref bbb-obejctdl )@n
+- WKC::PolicyIgnore コンテンツの表示を行わない @n
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDecidePolicyForNewWindowAction(WKC::FramePolicyFunction&, const WKC::NavigationAction&, const WKC::ResourceRequest&, WKC::FormState*, const WKC::String& frameName)
+@brief 新しいウィンドウ生成の処理方法の確認。
+@param "WKC::FramePolicyFunction&" WKC::FramePolicyFunctionへの関数ポインタ
+@param "const WKC::NavigationAction&" WKC::NavigationActionへの参照
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@param "WKC::FormState*" WKC::FormStateへのポインタ
+@param "const WKC::String& frameName" フレームの名前への参照
+@return なし
+@details
+target属性が指定されている<a>の遷移イベントで通知される。@n
+処理方法に応じて WKC::FramePolicyFunction() に、以下の値を設定する。@n
+- WKC::PolicyUse ウィンドウ生成を行う @n
+- WKC::PolicyIgnore ウィンドウ生成を行わない @n
+@attention
+本APIでは、ウィンドウの生成を行ってはならない。@n
+WKC::PolicyUseを設定し関数を抜けた後に通知される dispatchCreatePage() でウィンドウ生成を行うこと。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDecidePolicyForNavigationAction(WKC::FramePolicyFunction&, const WKC::NavigationAction&, const WKC::ResourceRequest&, WKC::FormState*)
+@brief 遷移イベントの処理方法の確認。
+@param "WKC::FramePolicyFunction&" WKC::FramePolicyFunctionへの関数ポインタ
+@param "const WKC::NavigationAction&" WKC::NavigationActionへの参照
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@param "WKC::FormState*" WKC::FormStateへのポインタ
+@return なし
+@details
+処理方法に応じて WKC::FramePolicyFunction() に、以下の値を設定する。@n
+- WKC::PolicyUse ページ遷移を行う @n
+- WKC::PolicyIgnore ページ遷移を行わない @n
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::cancelPolicyCheck()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchUnableToImplementPolicy(const WKC::ResourceError&)
+@brief (TBD) implement description
+@param WKC::ResourceError& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchWillSubmitForm(WKC::FramePolicyFunction&,WKC::FormState*)
+@brief フォームのサブミット要求の通知。
+@param "WKC::FramePolicyFunction&" (TBD) implement description
+@param "WKC::FormState*" (TBD) implement description
+@return なし
+@details
+(TBD) implement description
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidLoadMainResource(WKC::DocumentLoader*)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::revertToProvisionalState(WKC::DocumentLoader*)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::setMainDocumentError(WKC::DocumentLoader*, const WKC::ResourceError&)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::postProgressStartedNotification()
+@brief ブラウザプログレス処理開始通知。
+@return なし
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::postProgressEstimateChangedNotification()
+@brief ブラウザプログレス進捗更新通知
+@return なし
+@details
+本通知のタイミングにて、 WKC::WKCWebView::progress() を呼び出し、更新した進捗状況を取得する。
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::postProgressFinishedNotification()
+@brief ブラウザプログレス処理終了通知。
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual PassRefPtr<WKC::Frame> WKC::FrameLoaderClientIf::createFrame(const WKC::KURL& url, const WKC::String& name, WKC::HTMLFrameOwnerElement* ownerElement,  const WKC::String& referrer, bool allowsScrolling, int marginWidth, int marginHeight)
+@brief (TBD) implement description
+@param url (TBD) implement description
+@param name (TBD) implement description
+@param ownerElement (TBD) implement description
+@param referrer (TBD) implement description
+@param allowsScrolling (TBD) implement description
+@param marginWidth (TBD) implement description
+@param marginHeight (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual PassRefPtr<WKC::Widget> WKC::FrameLoaderClientIf::createPlugin(const WKCSize&, WKC::HTMLPlugInElement*, const WKC::KURL&, const WTF::Vector<WKC::String>&, const WTF::Vector<WKC::String>&, const WKC::String&, bool)
+@brief (TBD) implement description
+@param WKCSize& (TBD) implement description
+@param  WKC::HTMLPlugInElement* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::redirectDataToPlugin(WKC::Widget* pluginWidget)
+@brief (TBD) implement description
+@param pluginWidget (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual PassRefPtr<WKC::Widget> WKC::FrameLoaderClientIf::createJavaAppletWidget(const WKCSize&, WKC::HTMLAppletElement*, const WKC::KURL& baseURL, const WTF::Vector<WKC::String>& paramNames, const WTF::Vector<WKC::String>& paramValues)
+@brief (TBD) implement description
+@param WKCSize& (TBD) implement description
+@param  WKC::HTMLAppletElement* (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::String WKC::FrameLoaderClientIf::overrideMediaType() const
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidClearWindowObjectInWorld(WKC::DOMWrapperWorld*)
+@brief (TBD) implement description
+@param WKC::DOMWrapperWorld* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::documentElementAvailable()
+@brief (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::didPerformFirstNavigation() const
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::registerForIconNotification(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::ObjectContentType WKC::FrameLoaderClientIf::objectContentType(const WKC::KURL& url, const WKC::String& mimeType)
+@brief (TBD) implement description
+@param url (TBD) implement description
+@param mimeType (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::setMainFrameDocumentReady(bool)
+@brief (TBD) implement description
+@param bool (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::startDownload(const WKC::ResourceRequest&)
+@brief (TBD) implement description
+@param WKC::ResourceRequest& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::willChangeTitle(WKC::DocumentLoader*)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::didChangeTitle(WKC::DocumentLoader*)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::committedLoad(WKC::DocumentLoader*, const char*, int)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::finishedLoading(WKC::DocumentLoader*)
+@brief (TBD) implement description
+@param WKC::DocumentLoader* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::updateGlobalHistory()
+@brief 表示履歴の更新の通知。
+@return なし
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::updateGlobalHistoryRedirectLinks()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual bool WKC::FrameLoaderClientIf::shouldGoToHistoryItem(WKC::HistoryItem*) const
+@brief ヒストリーアイテムへの遷移の確認
+@param WKC::HistoryItem* 遷移するヒストリーアイテム
+@retval !false 遷移する
+@retval false 遷移しない
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidAddBackForwardItem(WKC::HistoryItem*) const
+@brief (TBD) implement description
+@param WKC::HistoryItem* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidRemoveBackForwardItem(WKC::HistoryItem*) const
+@brief (TBD) implement description
+@param WKC::HistoryItem* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::dispatchDidChangeBackForwardIndex() const
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::didDisplayInsecureContent()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::didRunInsecureContent(WKC::SecurityOrigin*)
+@brief (TBD) implement description
+@param WKC::SecurityOrigin* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::cancelledError(const WKC::ResourceRequest&)
+@brief キャンセルの通知。
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@retval WKC::ResourceError エラーオブジェクト
+@details
+コンテンツ取得を中止した場合に通知される。@n
+WKC::FrameLoaderClientIf::dispatchDidFailLoading() または、 WKC::FrameLoaderClientIf::dispatchDidFailLoading() で
+通知される。 WKC::ResourceError オブジェクトを生成してreturn値として返す。
+*/
+/**
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::blockedError(const WKC::ResourceRequest&)
+@brief 通信のブロックの通知。
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@retval WKC::ResourceError エラーオブジェクト
+@details
+禁止ポートを含むURLで通信した場合に通知される。@n
+WKC::FrameLoaderClientIf::dispatchDidFailLoading() または、 WKC::FrameLoaderClientIf::dispatchDidFailLoading() で
+通知される。 WKC::ResourceError オブジェクトを生成してreturn値として返す。
+*/
+/**
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::cannotShowURLError(const WKC::ResourceRequest&)
+@brief 表示不可の通知。
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@retval WKC::ResourceError エラーオブジェクト
+@details
+WKC::FrameLoaderClientIf::canHandleRequest() でfalseを返した場合に呼び出される。@n
+WKC::FrameLoaderClientIf::dispatchDidFailLoading() または、 WKC::FrameLoaderClientIf::dispatchDidFailLoading() で
+通知される。 WKC::ResourceError オブジェクトを生成してreturn値として返す。
+*/
+/**
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::interruptForPolicyChangeError(const WKC::ResourceRequest&)
+@brief 
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@retval WKC::ResourceError エラーオブジェクト
+@details
+WKC::FrameLoaderClientIf::dispatchDecidePolicyForMIMEType() で WKC::PolicyIgnore を設定した場合、 WKC::FrameLoaderClientIf::canShowMIMEType() で false を返した場合に呼び出される。 @n
+WKC::FrameLoaderClientIf::dispatchDidFailLoading() または、 WKC::FrameLoaderClientIf::dispatchDidFailLoading() で
+通知される。 WKC::ResourceError オブジェクトを生成してreturn値として返す。
+*/
+/**
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::cannotShowMIMETypeError(const WKC::ResourceResponse&)
+@brief 表示不可の通知
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@retval WKC::ResourceError エラーオブジェクト
+@details
+WKC::FrameLoaderClientIf::canShowMIMEType() でfalseを返した場合に呼び出される。@n
+WKC::FrameLoaderClientIf::dispatchDidFailLoading() または、 WKC::FrameLoaderClientIf::dispatchDidFailLoading() で
+通知される。 WKC::ResourceError オブジェクトを生成してreturn値として返す。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::fileDoesNotExistError(const WKC::ResourceResponse&)
+@brief (TBD) implement description
+@param WKC::ResourceResponse& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::ResourceError WKC::FrameLoaderClientIf::pluginWillHandleLoadError(const WKC::ResourceResponse&)
+@brief (TBD) implement description
+@param WKC::ResourceResponse& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::FrameLoaderClientIf::shouldFallBack(const WKC::ResourceError&)
+@brief 取得失敗用コンテンツの表示可否の確認
+@param WKC::ResourceError& (TBD) implement description
+@retval !false 許可
+@retval false 不許可
+@endcond
+*/
+/**
+@fn  virtual bool WKC::FrameLoaderClientIf::canHandleRequest(const WKC::ResourceRequest&) const
+@brief リクエスト送信の可否の確認。
+@param "const WKC::ResourceRequest&" リクエストオブジェクトへの参照
+@retval !false 許可
+@retval false 不許可
+@details
+falseを返した場合、 WKC::FrameLoaderClientIf::cannotShowURLError() が通知される。
+*/
+/**
+@fn  virtual bool WKC::FrameLoaderClientIf::canShowMIMEType(const WKC::String&) const
+@brief 対象のマイムタイプのコンテンツの表示可否の確認。
+@param WKC::String& マイムタイプの文字列への参照
+@retval !false 許可
+@retval false 不許可
+@details
+falseを返した場合、 WKC::FrameLoaderClientIf::cannotShowMIMETypeError() が通知される。 @n
+インクルージョンの画像などの場合は、通知されない。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::FrameLoaderClientIf::representationExistsForURLScheme(const WKC::String&) const
+@brief (TBD) implement description
+@param WKC::String& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::String WKC::FrameLoaderClientIf::generatedMIMETypeForURLScheme(const WKC::String&) const
+@brief (TBD) implement description
+@param WKC::String& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::frameLoadCompleted()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::saveViewStateToItem(WKC::HistoryItem*)
+@brief (TBD) implement description
+@param WKC::HistoryItem* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::restoreViewState()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::provisionalLoadStarted()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::didFinishLoad()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::prepareForDataSourceReplacement()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WTF::PassRefPtr<WKC::DocumentLoader> WKC::FrameLoaderClientIf::createDocumentLoader(const WKC::ResourceRequest&, const WKC::SubstituteData&)
+@brief (TBD) implement description
+@param WKC::ResourceRequest& (TBD) implement description
+@param WKC::SubstituteData& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::setTitle(const WKC::String& title, const WKC::KURL&)
+@brief (TBD) implement description
+@param title (TBD) implement description
+@param WKC::KURL& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  virtual WKC::String WKC::FrameLoaderClientIf::userAgent(const WKC::KURL&)
+@brief ユーザーエージェントの要求。
+@param WKC::KURL& リクエストを送信するURLの文字列への参照
+@retval WKC::String ユーザーエージェントの文字列
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::savePlatformDataToCachedFrame(WKC::CachedFrame*)
+@brief (TBD) implement description
+@param WKC::CachedFrame* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::transitionToCommittedFromCachedFrame(WKC::CachedFrame*)
+@brief (TBD) implement description
+@param WKC::CachedFrame* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::transitionToCommittedForNewPage()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual bool WKC::FrameLoaderClientIf::canCachePage() const
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::FrameLoaderClientIf::download(WKC::ResourceHandle*, const WKC::ResourceRequest&, const WKC::ResourceRequest&, const WKC::ResourceResponse&)
+@brief (TBD) implement description
+@param WKC::ResourceHandle* (TBD) implement description
+@return (TBD) implement description
+@endcond
+*/
+/**
+@fn  virtual void WKC::FrameLoaderClientIf::updateViewport()
+@brief meta name viewportの属性値情報の通知。
+@return なし
+@details
+Meta エレメントに含む viewport 属性情報の更新を通知する。情報は WKC::WKCSettings から取得する。@n
+- width@n
+WKC::WKCSettings::viewportWidth()
+- 指定値範囲が >320 && <=10000 の場合、指定値を取得
+- 指定値が device-width、 また指定範囲が <= 320 の場合、0 を取得
+- それ以外の値を指定した場合、-1 を取得
+- height@n
+WKC::WKCSettings::viewportHeight()
+- 指定値範囲が >=200 && <=10000 の場合、指定値を取得
+- 指定値が device-height の場合、0 を取得
+- それ以外の値を指定した場合、-1 を取得
+- initial-scale@n
+WKC::WKCSettings::viewportInitialScale()
+- 指定値×100 を取得（例：1.2指定の場合は120）
+- 指定値範囲が >0.01 && <=10 の場合、指定値×100 を取得
+- それ以外の値を指定した場合、0 を取得
+- minimum-scale@n
+WKC::WKCSettings::viewportMinimumScale()
+- initial-scale と同じルールで戻り値を取得
+- maximum-scale@n
+WKC::WKCSettings::viewportMaximumScale()
+- initial-scale と同じルールで戻り値を取得
+- user-scalable@n
+WKC::WKCSettings::viewportUserScalable()
+- 指定値が no 、0、false の場合、false を取得
+- それ以外の値を指定した場合、true を取得
+*/
+/**
+@fn  WKC::FrameLoaderClientIf::FrameLoaderClientIf(WKCWebFramePrivate*)
+@brief (TBD) implement description
+@param WKCWebFramePrivate* (TBD) implement description
+*/
+/**
+@fn  bool WKC::FrameLoaderClientIf::construct()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/*@}*/

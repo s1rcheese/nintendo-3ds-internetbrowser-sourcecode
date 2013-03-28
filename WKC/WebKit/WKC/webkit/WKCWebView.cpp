@@ -11,7 +11,7 @@
     Copyright (C) 2009 Igalia S.L.
     Copyright (C) 2009 Movial Creative Technologies Inc.
     Copyright (C) 2009 Bobby Powers
-    Copyright (c) 2010,2011 ACCESS CO., LTD. All rights reserved.
+    Copyright (c) 2010-2012 ACCESS CO., LTD. All rights reserved.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -3733,6 +3733,18 @@ WKCWebKitSetEncodingDetectorLanguageSet(int languageSetFlag)
     }
     if (languageSetFlag & WKC::EEncodingDetectorJapanese) {
         flags |= WKC_I18N_DETECT_ENCODING_JAPANESE;
+    }
+    if (languageSetFlag & WKC::EEncodingDetectorKorean) {
+        flags |= WKC_I18N_DETECT_ENCODING_KOREAN;
+    }
+    if (languageSetFlag & WKC::EEncodingDetectorTraditionalChinese) {
+        flags |= WKC_I18N_DETECT_ENCODING_TRADITIONAL_CHINESE;
+    }
+    if (languageSetFlag & WKC::EEncodingDetectorSimplifiedChinese) {
+        flags |= WKC_I18N_DETECT_ENCODING_SIMPLIFIED_CHINESE;
+    }
+    if (languageSetFlag & WKC::EEncodingDetectorSBCS) {
+        flags |= WKC_I18N_DETECT_ENCODING_SBCS;
     }
     wkcI18NSetDetectEncodingLanguageSetPeer(flags);
 }

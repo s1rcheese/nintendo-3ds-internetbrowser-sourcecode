@@ -1,0 +1,93 @@
+/*
+ *
+ * Copyright(c) 2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/helpers/DragClientIf.h
+*/
+/*@{*/
+/**
+@class WKC::DragClientIf 
+@brief ドラッグイベントの通知をするクラス。
+*/
+/**
+@fn  static DragClientIf* WKC::DragClientIf::create(WKCWebViewPrivate* view)
+@brief ドラッグクライアントの生成。
+@param "WKCWebViewPrivate* view" WKCWebViewPrivateへのポインタ
+@retval DragClientIf* ドラッグクライアントへのポインタ
+*/
+/**
+@fn  WKC::DragClientIf::~DragClientIf()
+@brief デストラクタ。
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::DragClientIf::willPerformDragDestinationAction(WKC::DragDestinationAction, WKC::DragData*)
+@brief (TBD) implement description
+@param WKC::DragDestinationAction (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::DragClientIf::willPerformDragSourceAction(WKC::DragSourceAction, const WKCPoint&, WKC::Clipboard*)
+@brief (TBD) implement description
+@param WKC::DragSourceAction (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::DragDestinationAction WKC::DragClientIf::actionMaskForDrag(WKC::DragData*)
+@brief (TBD) implement description
+@param WKC::DragData* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::DragSourceAction WKC::DragClientIf::dragSourceActionMaskForPoint(const WKCPoint& windowPoint)
+@brief (TBD) implement description
+@param windowPoint (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::DragClientIf::startDrag(WKC::DragImageRef dragImage, const WKCPoint& dragImageOrigin, const WKCPoint& eventPos, WKC::Clipboard*, WKC::Frame*, bool linkDrag = false)
+@brief (TBD) implement description
+@param dragImage (TBD) implement description
+@param dragImageOrigin (TBD) implement description
+@param eventPos (TBD) implement description
+@param  WKC::Clipboard* (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual WKC::DragImageRef WKC::DragClientIf::createDragImageForLink(WKC::KURL&, const WKC::String& label, WKC::Frame*)
+@brief (TBD) implement description
+@param WKC::KURL& (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@fn  virtual void WKC::DragClientIf::dragControllerDestroyed()
+@brief (TBD) implement description
+@return (TBD) implement description 
+@endcond
+*/
+/**
+@fn  WKC::DragClientIf::DragClientIf(WKCWebViewPrivate*)
+@brief (TBD) implement description
+@param WKCWebViewPrivate* (TBD) implement description
+*/
+/**
+@fn  bool WKC::DragClientIf::construct()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/*@}*/

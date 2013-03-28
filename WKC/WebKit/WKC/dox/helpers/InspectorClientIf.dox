@@ -1,0 +1,124 @@
+/*
+ *
+ * Copyright(c) 2011 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/helpers/InspectorClientIf.h
+*/
+/*@{*/
+/**
+@cond WKC_PRIVATE_DOCUMENT
+@class WKC::InspectorClientIf 
+@brief 未サポート。
+@endcond
+*/
+/**
+@fn  static InspectorClientIf* WKC::InspectorClientIf::create(WKCWebViewPrivate* webView)
+@brief (TBD) implement description
+@param webView (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  WKC::InspectorClientIf::~InspectorClientIf()
+@brief (TBD) implement description
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::inspectorDestroyed()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  void WKC::InspectorClientIf::webViewDestroyed()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual WKC::Page* WKC::InspectorClientIf::createPage()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual WKC::String WKC::InspectorClientIf::localizedStringsURL()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual WKC::String WKC::InspectorClientIf::hiddenPanels()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::showWindow()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::closeWindow()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::attachWindow()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::detachWindow()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::setAttachedWindowHeight(unsigned height)
+@brief (TBD) implement description
+@param height (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::highlight(WKC::Node*)
+@brief (TBD) implement description
+@param WKC::Node* (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::hideHighlight()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::inspectedURLChanged(const WKC::String& newURL)
+@brief (TBD) implement description
+@param newURL (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::populateSetting(const WKC::String& key, WKC::String* value)
+@brief (TBD) implement description
+@param key (TBD) implement description
+@param value (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::storeSetting(const WKC::String& key, const WKC::String& value)
+@brief (TBD) implement description
+@param key (TBD) implement description
+@param value (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  virtual void WKC::InspectorClientIf::inspectorWindowObjectCleared()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/**
+@fn  WKC::InspectorClientIf::InspectorClientIf(WKCWebViewPrivate* webView)
+@brief (TBD) implement description
+@param webView (TBD) implement description
+*/
+/**
+@fn  bool WKC::InspectorClientIf::construct()
+@brief (TBD) implement description
+@return (TBD) implement description 
+*/
+/*@}*/

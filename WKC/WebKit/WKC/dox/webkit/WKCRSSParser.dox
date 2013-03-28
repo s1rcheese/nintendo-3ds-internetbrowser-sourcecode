@@ -1,0 +1,174 @@
+/*
+ *
+ * Copyright(c) 2010 ACCESS CO., LTD. All rights reserved.
+ *
+ */
+
+/**
+@file ../WKC/WebKit/WKC/webkit/WKCRSSParser.h
+*/
+/*@{*/
+
+
+/**
+@class WKC::WKCRSSFeed
+@brief RSSフィード情報を保持するクラス。
+*/
+/**
+@var const unsigned short* WKC::WKCRSSFeed::m_title
+@brief チャンネルのタイトル（存在しない場合 0）
+*/
+/**
+@var const unsigned short* WKC::WKCRSSFeed::m_description
+@brief チャンネルの説明（存在しない場合 0）
+*/
+/**
+@var const char* WKC::WKCRSSFeed::m_link
+@brief チャンネルを代表するWebサイトのURL（存在しない場合 0）
+*/
+/**
+@var WKC::WKCRSSFeed::Item* WKC::WKCRSSFeed::m_item
+@brief アイテム（存在しない場合 0）
+*/
+/**
+@fn unsigned int WKC::WKCRSSFeed::itemLength() const
+@brief アイテムの個数を得る。
+@return アイテムの個数。
+*/
+
+
+/**
+@struct WKC::WKCRSSFeed::Item
+@brief RSSフィードの item 情報を保持する構造体。
+*/
+/**
+@var Item* WKC::WKCRSSFeed::Item::m_next
+@brief 次のアイテム（存在しない場合 0）
+*/
+/**
+@var const unsigned short* WKC::WKCRSSFeed::Item::m_title
+@brief アイテムのタイトル（存在しない場合 0） 
+*/
+/**
+@var const unsigned short* WKC::WKCRSSFeed::Item::m_description
+@brief アイテムの概要（存在しない場合 0）
+*/
+/**
+@var const unsigned short* WKC::WKCRSSFeed::Item::m_content
+@brief アイテムの内容（存在しない場合 0）
+*/
+/**
+@var const char* WKC::WKCRSSFeed::Item::m_link
+@brief アイテムを示すWebサイトのURL（存在しない場合 0）
+*/
+/**
+@var const WKCRSSFeed::Date* WKC::WKCRSSFeed::Item::m_date
+@brief アイテムが公開された日付 （存在しない場合 0）
+*/
+
+
+/**
+@struct WKC::WKCRSSFeed::Date
+@brief RSSフィードの日時情報を保持する構造体。
+*/
+/**
+@var enum WKC::WKCRSSFeed::Date::Type WKC::WKCRSSFeed::Date::m_type
+@brief m_tm, m_zone が保持している日時要素。
+*/
+/**
+@var struct tm WKC::WKCRSSFeed::Date::m_tm
+@brief ローカルタイム。tm_wday, tm_yday は不定、tm_isdst は 0、その他メンバーは m_type で規定。
+*/
+/**
+@var  short WKC::WKCRSSFeed::Date::m_zone
+@brief タイムゾーン。UTC からのオフセットを分で表す。日本は +540。-5999～+5999 m_type で規定。
+*/
+
+/**
+@enum WKC::WKCRSSFeed::Date::Type
+@brief 保持している日時要素。
+*/
+/**
+@var WKC::WKCRSSFeed::Date::Type WKC::WKCRSSFeed::Date::EType_Y
+@brief 年のみ有効。月日時分秒タイムゾーンは0を保持。
+*/
+/**
+@var WKC::WKCRSSFeed::Date::Type WKC::WKCRSSFeed::Date::EType_YM
+@brief 年月のみ有効。日時分秒タイムゾーンは0を保持。
+*/
+/**
+@var WKC::WKCRSSFeed::Date::Type WKC::WKCRSSFeed::Date::EType_YMD
+@brief 年月日のみ有効。時分秒タイムゾーンは0を保持。
+*/
+/**
+@var WKC::WKCRSSFeed::Date::Type WKC::WKCRSSFeed::Date::EType_YMDHMZ
+@brief 年月日時分タイムゾーンのみ有効。秒は0を保持。
+*/
+/**
+@var WKC::WKCRSSFeed::Date::Type WKC::WKCRSSFeed::Date::EType_YMDHMSZ
+@brief 年月日時分秒タイムゾーンすべて有効。
+*/
+
+
+/**
+@class WKC::WKCRSSParser 
+@brief RSSフィードをパースするクラス。
+*/
+/**
+@fn  static WKCRSSParser* WKC::WKCRSSParser::create()
+@brief RSSパーサの生成。
+@retval !=0 RSSパーサへのポインタ。
+@retval ==0  生成失敗。
+@details
+WKCRSSParserを作成し、そのポインタを返す。
+*/
+/**
+@fn  static void WKC::WKCRSSParser::deleteWKCRSSParser(WKCRSSParser *self)
+@brief RSSパーサの消滅。
+@param "WKCRSSParser *self" RSSパーサへのポインタ（0 は許容される。その場合何も起こらない。）
+@return なし
+*/
+/**
+@fn  void WKC::WKCRSSParser::write(const char* in_str, unsigned int in_len, bool in_flush)
+@brief フィードコンテンツ（chunk）の入力。
+@param "const char* in_str" コンテンツ（0 は許容されない）
+@param "unsigned int in_len" in_str の長さ
+@param "bool in_flush" false = 続きあり、 true = 入力終了
+@return なし
+@details
+フィード全体を複数の chunk に分けてパーサに入力する。最後の chunk 以外は in_flush を false で、最後の chunk は in_flush を true で本関数を呼び出す。
+*/
+/**
+@fn  const WKCRSSFeed* WKC::WKCRSSParser::feed() const
+@brief フィード情報を得る。
+@return フィード情報へのポインタ。0 は返さない。
+*/
+/**
+@fn  WKC::WKCRSSParser::Status WKC::WKCRSSParser::status() const
+@brief ステータスを返す。
+@return ステータス。
+*/
+
+
+/**
+@enum WKC::WKCRSSParser::Status
+@brief RSSパーサの状態
+*/
+/**
+@var WKC::WKCRSSParser::Status WKC::WKCRSSParser::EStatus_OK
+@brief 正常。
+*/
+/**
+@var WKC::WKCRSSParser::Status WKC::WKCRSSParser::EStatus_NoInput
+@brief まだ入力が完了していない。
+*/
+/**
+@var WKC::WKCRSSParser::Status WKC::WKCRSSParser::EStatus_NoMemory
+@brief メモリ不足。
+*/
+/**
+@var WKC::WKCRSSParser::Status WKC::WKCRSSParser::EStatus_XMLError
+@brief XML 上のエラー発生。
+*/
+
+/*@}*/

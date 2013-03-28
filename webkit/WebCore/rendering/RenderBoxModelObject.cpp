@@ -314,7 +314,12 @@ int RenderBoxModelObject::paddingRight(bool) const
 }
 
 
+#if 1
+// modified at webkit.org trunk r53291
+void RenderBoxModelObject::paintFillLayerExtended(const PaintInfo& paintInfo, const Color& c, const FillLayer* bgLayer, int tx, int ty, int w, int h, InlineFlowBox* box, CompositeOperator op, RenderObject* backgroundObject)
+#else
 void RenderBoxModelObject::paintFillLayerExtended(const PaintInfo& paintInfo, const Color& c, const FillLayer* bgLayer, int tx, int ty, int w, int h, InlineFlowBox* box, CompositeOperator op)
+#endif
 {
 #if PLATFORM(WKC)
     CRASH_IF_STACK_OVERFLOW(WKC_STACK_MARGIN_DEFAULT);
@@ -476,6 +481,10 @@ void RenderBoxModelObject::paintFillLayerExtended(const PaintInfo& paintInfo, co
         if (!destRect.isEmpty()) {
             phase += destRect.location() - destOrigin;
             CompositeOperator compositeOp = op == CompositeSourceOver ? bgLayer->composite() : op;
+#if 1
+            // modified at webkit.org trunk r53291
+            RenderObject* clientForBackgroundImage = backgroundObject ? backgroundObject : this;
+#else
             RenderObject* clientForBackgroundImage = this;
             // Check if this is the root element painting a background layer propagated from <body>,
             // and pass the body's renderer as the client in that case.
@@ -490,6 +499,7 @@ void RenderBoxModelObject::paintFillLayerExtended(const PaintInfo& paintInfo, co
                         clientForBackgroundImage = bodyRenderer;
                 }
             }
+#endif
             context->drawTiledImage(bg->image(clientForBackgroundImage, tileSize), style()->colorSpace(), destRect, phase, tileSize, compositeOp);
         }
     }

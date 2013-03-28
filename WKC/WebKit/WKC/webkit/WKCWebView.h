@@ -1,7 +1,7 @@
 /*
  * WKCWebView.h
  *
- * Copyright (c) 2010,2011 ACCESS CO., LTD. All rights reserved.
+ * Copyright (c) 2010-2012 ACCESS CO., LTD. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -162,11 +162,15 @@ void WKCWebKitSetReservedMemorySizeAtCrashing(unsigned int size);
 const WKC::String WKCWebKitGetNodeAttributeValue(const WKC::Node* node, const char* attributeName);
 
 enum {
-    EEncodingDetectorNone      = 0x00000000,
-    EEncodingDetectorUniversal = 0x00000001,
-    EEncodingDetectorJapanese  = 0x00000002,
+    EEncodingDetectorNone               = 0x00000000,
+    EEncodingDetectorUniversal          = 0x00000001,
+    EEncodingDetectorJapanese           = 0x00000002,
+    EEncodingDetectorKorean             = 0x00000004,
+    EEncodingDetectorTraditionalChinese = 0x00000008,
+    EEncodingDetectorSimplifiedChinese  = 0x00000010,
+    EEncodingDetectorSBCS               = 0x00000020,
 
-    EEncodingDetectorAll       = EEncodingDetectorUniversal | EEncodingDetectorJapanese,
+    EEncodingDetectorAll                = EEncodingDetectorUniversal | EEncodingDetectorJapanese | EEncodingDetectorKorean | EEncodingDetectorTraditionalChinese | EEncodingDetectorSimplifiedChinese | EEncodingDetectorSBCS,
 
     EEncodingDetectorEndOfEnum
 };

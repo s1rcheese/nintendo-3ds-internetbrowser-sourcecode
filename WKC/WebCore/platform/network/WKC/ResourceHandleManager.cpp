@@ -12,7 +12,7 @@
  * Copyright (C) 2009 Appcelerator Inc.
  * Copyright (C) 2009 Brent Fulgham <bfulgham@webkit.org>
  * All rights reserved.
- * Copyright (c) 2010, 2011 ACCESS CO., LTD. All rights reserved.
+ * Copyright (c) 2010-2012 ACCESS CO., LTD. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -1015,7 +1015,10 @@ static CURLcode cookie_accept_callback(CURL *curl, const char *domain, bool tail
     }
 
     String firstparty_host = d->m_request.firstPartyForCookies().host();
-    String cookie_domain = String((tailmatch)?".":"") + domain;
+    String cookie_domain;
+    if (domain && strlen(domain) > 0) {
+        cookie_domain = String((tailmatch && domain[0] != '.')?".":"") + domain;
+    }
 
     if (d->client())
         if (!d->client()->willAcceptCookie(job, firstparty_host, cookie_domain))
