@@ -108,9 +108,8 @@ void History::stateObjectAdded(PassRefPtr<SerializedScriptValue> data, const Str
     
     KURL fullURL = urlForState(urlString);
 #if 1
-    // modified at webkit.org trunk r64077
-    RefPtr<SecurityOrigin> origin = SecurityOrigin::create(fullURL); 
-    if (!fullURL.isValid() || !m_frame->document()->securityOrigin()->isSameSchemeHostPort(origin.get())) { 
+    // modified at webkit.org trunk r64077 and r85436
+    if (!fullURL.isValid() || !m_frame->document()->securityOrigin()->canRequest(fullURL)) { 
 #else
     if (!fullURL.isValid()) {
 #endif

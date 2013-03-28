@@ -186,6 +186,17 @@ void
 FrameLoaderClientWKC::detachedFromParent2()
 {
     m_appClient->detachedFromParent2();
+
+    WebCore::FrameLoader* frameLoader = m_frame->core()->loader();
+    if (!frameLoader)
+        return;
+
+    WebCore::DocumentLoader* documentLoader = frameLoader->activeDocumentLoader();
+    if (!documentLoader)
+        return;
+
+    if (frameLoader->state() == WebCore::FrameStateCommittedPage)
+        documentLoader->mainReceivedError(frameLoader->cancelledError(documentLoader->request()), true);
 }
 
 void
@@ -193,7 +204,7 @@ FrameLoaderClientWKC::detachedFromParent3()
 {
     m_appClient->detachedFromParent3();
     // If we are pan-scrolling when frame is detached, stop the pan scrolling. 
-    m_frame->core()->eventHandler()->stopAutoscrollTimer(); 
+    m_frame->core()->eventHandler()->stopAutoscrollTimer();
 }
 
 
@@ -595,6 +606,11 @@ FrameLoaderClientWKC::createFrame(const WebCore::KURL& url, const WebCore::Strin
     } else {
         child = WKC::WKCWebFrame::create(m_frame->m_view, m_frame->clientBuilders(), 0);
     }
+    // The parent frame page may be removed by JavaScript.
+    if (!frame->page()) {
+        return 0;
+    }
+
     if (!child) return 0;
 
     RefPtr<WebCore::Frame> childframe = adoptRef(child->privateFrame()->core());

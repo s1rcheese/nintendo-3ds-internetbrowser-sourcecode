@@ -150,6 +150,7 @@ private:
     void appendScheduledJob(ResourceHandle*);
     bool removeScheduledJob(ResourceHandle*);  // from cancel()
     ResourceHandle* shiftScheduledJob();
+    void removeAllScheduledJobs();
 
     // from curl_multi_add_handle() to curl_multi_remove_handle()/curl_easy_cleanup()
     // max is m_tcpConnections
@@ -157,6 +158,7 @@ private:
     void appendRunningJob(ResourceHandle* job);
     bool removeRunningJob(ResourceHandle* job);
     ResourceHandle* shiftRunningJob();  // for deleteing all jobs
+    void removeAllRunningJobs();
 
     String m_proxy;
     String m_proxyHost;
@@ -168,6 +170,8 @@ private:
 
     String m_proxyUserCache;
     String m_proxyPassCache;
+
+    bool m_willChallengeProxyAuth;
 
     struct curl_slist* m_cookieInfo;
     struct curl_slist* m_nextCookie;

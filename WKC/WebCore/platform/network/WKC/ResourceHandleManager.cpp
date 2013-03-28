@@ -294,6 +294,7 @@ ResourceHandleManager::ResourceHandleManager()
     , m_cookiesDeleting(false)
     , m_jsSequential(false)
     , m_cookieMaxEntries(20) /* default */
+    , m_willChallengeProxyAuth(false)
 {
     FUNCTIONPRINTF(("<rhm>ResourceHandleManager()"));
 
@@ -323,17 +324,7 @@ ResourceHandleManager::~ResourceHandleManager()
 {
     FUNCTIONPRINTF(("<rhm>~ResourceHandleManager()"));
 
-    ResourceHandle* job;
-    while ((job = shiftRunningJob())) {
-        ResourceHandleInternal* d = job->getInternal();
-        if (d && d->m_handle) {
-            curl_multi_remove_handle(m_curlMultiHandle, d->m_handle);
-            curl_easy_cleanup(d->m_handle);
-            d->m_handle = 0;
-        }
-        job->deref();
-    }
-
+    removeAllRunningJobs();
     ResourceHandleManagerSSL::deleteSharedInstance();
 
     curl_multi_cleanup(m_curlMultiHandle);
@@ -1074,14 +1065,23 @@ void ResourceHandleManager::setProxyInfo(const String& host, unsigned long port,
 
     /* at first, delete old one */
     curl_multi_del_authcache(m_curlMultiHandle, m_proxy.utf8().data(), false);
+    removeAllScheduledJobs();
+    removeAllRunningJobs();
+    m_jsSequential = false;
+    curl_multi_cleanup(m_curlMultiHandle);
+
+    m_curlMultiHandle = curl_multi_init();
+    curl_multi_setopt(m_curlMultiHandle, CURLMOPT_MAXCONNECTS, m_tcpConnections);
 
     if (0 == host.length()) {
         m_proxy = String("");
         m_proxyUser = String("");
         m_proxyPass = String("");
+        m_willChallengeProxyAuth = false;
     }
     else {
         m_proxy = String("http://") + host + ":" + String::number(m_proxyPort);
+        m_willChallengeProxyAuth = true;
     }
 }
 
@@ -1092,6 +1092,7 @@ void ResourceHandleManager::setProxyUserPass(const String& username, const Strin
     else
         m_proxyUser = "";
     m_proxyPass = password;
+    m_willChallengeProxyAuth = true;
 }
 
 void ResourceHandleManager::didReceiveProxyAuthChallenge(ResourceHandle* job, ResourceHandleInternal* d)
@@ -1402,6 +1403,9 @@ bool ResourceHandleManager::startScheduledJobs()
 
     bool started = false;
     while (!m_scheduledJobList.isEmpty() && m_runningJobList.size() < m_tcpConnections) {
+        if (m_willChallengeProxyAuth && m_runningJobList.size() > 0) {
+            break;
+        }
         ResourceHandle* job = shiftScheduledJob();
         if (!job)
             return true;
@@ -1496,6 +1500,8 @@ static void parseDataUrl(ResourceHandle* job)
         data = decodeURLEscapeSequences(data);
         response.setTextEncodingName(charset);
         client->didReceiveResponse(job, response);
+        if (job->getInternal()->m_cancelled)
+            return;
         client = job->client();
 
         // WebCore's decoder fails on Acid3 test 97 (whitespace).
@@ -1505,12 +1511,16 @@ static void parseDataUrl(ResourceHandle* job)
             if (job->getInternal()->m_cancelled)
                 return;
             client->didReceiveData(job, out.data(), out.size(), 0);
+            if (job->getInternal()->m_cancelled)
+                return;
         }
     } else {
         // We have to convert to UTF-16 early due to limitations in KURL
         data = decodeURLEscapeSequences(data, TextEncoding(charset));
         response.setTextEncodingName("UTF-16");
         client->didReceiveResponse(job, response);
+        if (job->getInternal()->m_cancelled) 
+            return;
         client = job->client();
 
         if (client && data.length() > 0) {
@@ -1518,6 +1528,8 @@ static void parseDataUrl(ResourceHandle* job)
             if (job->getInternal()->m_cancelled)
                 return;
             client->didReceiveData(job, reinterpret_cast<const char*>(data.characters()), data.length() * sizeof(UChar), 0);
+            if (job->getInternal()->m_cancelled) 
+                return;
         }
     }
 
@@ -2074,6 +2086,20 @@ ResourceHandle* ResourceHandleManager::shiftScheduledJob()
 #endif
 }
 
+void ResourceHandleManager::removeAllScheduledJobs()
+{
+    FUNCTIONPRINTF(("<rhm>removeAllScheduledJobs()"));
+
+    ResourceHandle* job;
+    int num = m_scheduledJobList.size();
+
+    while (num-- > 0) {
+        job = m_scheduledJobList[num];
+        m_scheduledJobList.remove(num);
+        job->deref();
+    }
+}
+
 //
 // Running job control
 //
@@ -2101,6 +2127,7 @@ bool ResourceHandleManager::removeRunningJob(ResourceHandle* job)
         if (job == m_runningJobList[i]) {
             LOADINGPRINTF(("Finish Loading [%p]", job));
             m_runningJobList.remove(i);
+            m_willChallengeProxyAuth = false;
             ret = true;
             break;
         }
@@ -2118,7 +2145,7 @@ bool ResourceHandleManager::removeRunningJob(ResourceHandle* job)
 
 ResourceHandle* ResourceHandleManager::shiftRunningJob()
 {
-    /* only it is called ~ResourceHandleManager() */
+    /* only it is called removeAllRunningJobs() */
     FUNCTIONPRINTF(("<rhm>shiftRunningJob()"));
 
     int size = m_runningJobList.size();
@@ -2128,6 +2155,23 @@ ResourceHandle* ResourceHandleManager::shiftRunningJob()
         m_runningJobList.remove(0);
     }
     return job;
+}
+
+void ResourceHandleManager::removeAllRunningJobs()
+{
+    FUNCTIONPRINTF(("<rhm>removeAllRunningJobs()"));
+
+    ResourceHandle* job;
+
+    while ((job = shiftRunningJob())) {
+        ResourceHandleInternal* d = job->getInternal();
+        if (d && d->m_handle) {
+            curl_multi_remove_handle(m_curlMultiHandle, d->m_handle);
+            curl_easy_cleanup(d->m_handle);
+            d->m_handle = 0;
+        }
+        job->deref();
+    }
 }
 
 } // namespace WebCore

@@ -5,7 +5,7 @@
  * Copyright (C) 2004, 2005, 2006, 2007 Apple Inc. All rights reserved.
  * Copyright (C) 2006 Alexey Proskuryakov (ap@webkit.org)
  *           (C) 2007, 2008 Nikolas Zimmermann <zimmermann@kde.org>
- * Copyright (c) 2010 ACCESS CO., LTD. All rights reserved.
+ * Copyright (c) 2010, 2011 ACCESS CO., LTD. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -296,6 +296,10 @@ bool EventTarget::fireEventListeners(Event* event)
         // To match Mozilla, the AT_TARGET phase fires both capturing and bubbling
         // event listeners, even though that violates some versions of the DOM spec.
         registeredListener.listener->handleEvent(scriptExecutionContext(), event);
+#if PLATFORM(WKC)// This is a local patch!!! Instead of this, we need to merge the patch of https://bugs.webkit.org/show_bug.cgi?id=33383 in furture.
+        if (d->eventListenerMap.isEmpty())
+            break;
+#endif
     }
     d->firingEventIterators.removeLast();
 

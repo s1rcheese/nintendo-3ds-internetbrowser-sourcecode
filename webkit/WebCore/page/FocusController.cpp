@@ -766,7 +766,7 @@ Node* FocusController::findNextFocusableNodeInRect(const FocusDirection directio
     Node* start;
     if (direction == FocusDirectionUp) {
         Node* last = 0;
-        for (last = frame->document()->lastChild(); last->lastChild(); last = last->lastChild())
+        for (last = frame->document()->lastChild(); last && last->lastChild(); last = last->lastChild())
             ; // Empty loop.
         start = last;
     } else {

@@ -28,6 +28,9 @@
 #include "SerializedScriptValue.h"
 
 #include "File.h"
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+#include "FileList.h"
+#endif
 #include "JSDOMGlobalObject.h"
 #include "JSFile.h"
 #include "JSFileList.h"
@@ -141,6 +144,30 @@ private:
     unsigned m_length;
 };
 
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+class SerializedFileList : public SharedSerializedData {
+public:
+    static PassRefPtr<SerializedFileList> create(const FileList* list)
+    {
+        return adoptRef(new SerializedFileList(list));
+    }
+
+    unsigned length() const { return m_files.size(); }
+    const String& item(unsigned idx) { return m_files[idx]; }
+
+private:
+    SerializedFileList(const FileList* list)
+    {
+        unsigned length = list->length();
+        m_files.reserveCapacity(length);
+        for (unsigned i = 0; i < length; i++)
+            m_files.append(list->item(i)->path().crossThreadString());
+    }
+
+    Vector<String> m_files;
+};
+#endif
+
 SerializedScriptValueData::SerializedScriptValueData(RefPtr<SerializedObject> data)
     : m_type(ObjectType)
     , m_sharedData(data)
@@ -152,6 +179,14 @@ SerializedScriptValueData::SerializedScriptValueData(RefPtr<SerializedArray> dat
     , m_sharedData(data)
 {
 }
+
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+SerializedScriptValueData::SerializedScriptValueData(const FileList* fileList)
+    : m_type(FileListType)
+    , m_sharedData(SerializedFileList::create(fileList))
+{
+}
+#endif
 
 SerializedScriptValueData::SerializedScriptValueData(const File* file)
     : m_type(FileType)
@@ -168,6 +203,13 @@ SerializedObject* SharedSerializedData::asObject()
 {
     return static_cast<SerializedObject*>(this);
 }
+
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+SerializedFileList* SharedSerializedData::asFileList()
+{
+    return static_cast<SerializedFileList*>(this);
+}
+#endif
 
 static const unsigned maximumFilterRecursion = 40000;
 enum WalkerState { StateUnknown, ArrayStartState, ArrayStartVisitMember, ArrayEndVisitMember,
@@ -496,6 +538,10 @@ struct SerializingTreeWalker : public BaseWalker {
             JSObject* obj = asObject(value);
             if (obj->inherits(&JSFile::s_info))
                 return SerializedScriptValueData(toFile(obj));
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+            if (obj->inherits(&JSFileList::s_info))
+                return SerializedScriptValueData(toFileList(obj));
+#endif
                 
             CallData unusedData;
             if (value.getCallData(unusedData) == CallTypeNone)
@@ -658,10 +704,27 @@ struct DeserializingTreeWalker : public BaseWalker {
                 return new (m_exec) DateInstance(m_exec, value.asDouble());
             case SerializedScriptValueData::FileType:
                 return toJS(m_exec, static_cast<JSDOMGlobalObject*>(m_exec->lexicalGlobalObject()), File::create(value.asString().crossThreadString()));
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+            case SerializedScriptValueData::FileListType: {
+                RefPtr<FileList> result = FileList::create();
+                SerializedFileList* serializedFileList = value.asFileList();
+                unsigned length = serializedFileList->length();
+                for (unsigned i = 0; i < length; i++)
+                    result->append(File::create(serializedFileList->item(i)));
+                return toJS(m_exec, static_cast<JSDOMGlobalObject*>(m_exec->lexicalGlobalObject()), result.get());
+            }
+            case SerializedScriptValueData::EmptyType:
+                ASSERT_NOT_REACHED();
+                return jsNull();
+        }
+        ASSERT_NOT_REACHED();
+        return jsNull();
+#else
             default:
                 ASSERT_NOT_REACHED();
                 return JSValue();
         }
+#endif
     }
 
     void getPropertyNames(RefPtr<SerializedObject> object, Vector<SerializedObject::PropertyNameList, 16>& properties)
@@ -808,11 +871,22 @@ struct TeardownTreeWalker {
             case SerializedScriptValueData::StringType:
             case SerializedScriptValueData::ImmediateType:
             case SerializedScriptValueData::NumberType:
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+            case SerializedScriptValueData::DateType:
+            case SerializedScriptValueData::EmptyType:
+            case SerializedScriptValueData::FileType:
+            case SerializedScriptValueData::FileListType:
+                return true;
+        }
+        ASSERT_NOT_REACHED();
+        return true;
+#else
                 return true;
             default:
                 ASSERT_NOT_REACHED();
                 return JSValue();
         }
+#endif
     }
 
     void getPropertyNames(RefPtr<SerializedObject> object, Vector<SerializedObject::PropertyNameList, 16>& properties)

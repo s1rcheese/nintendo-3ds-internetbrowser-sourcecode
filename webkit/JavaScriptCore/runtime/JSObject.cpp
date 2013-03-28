@@ -3,6 +3,7 @@
  *  Copyright (C) 2001 Peter Kelly (pmk@post.com)
  *  Copyright (C) 2003, 2004, 2005, 2006, 2008, 2009 Apple Inc. All rights reserved.
  *  Copyright (C) 2007 Eric Seidel (eric@webkit.org)
+ *  Copyright (c) 2011 ACCESS CO., LTD. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -37,6 +38,17 @@
 #include "Operations.h"
 #include <math.h>
 #include <wtf/Assertions.h>
+
+#if PLATFORM(WKC)
+#include "ExceptionHelpers.h"
+#ifndef IS_STACK_OVERFLOW
+namespace JSC {
+// webkit/JavaScriptCore/parser/Parser.cpp
+bool isStackOverflow(unsigned int margin, const char* file, int line, const char* function);
+}
+#define IS_STACK_OVERFLOW(margin)   JSC::isStackOverflow((margin), __FILE__, __LINE__, WTF_PRETTY_FUNCTION)
+#endif
+#endif // PLATFORM(WKC)
 
 namespace JSC {
 
@@ -231,6 +243,12 @@ bool JSObject::deleteProperty(ExecState* exec, unsigned propertyName)
 
 static ALWAYS_INLINE JSValue callDefaultValueFunction(ExecState* exec, const JSObject* object, const Identifier& propertyName)
 {
+#if PLATFORM(WKC)
+    if (IS_STACK_OVERFLOW(WKC_STACK_MARGIN_DEFAULT)) {
+        exec->setException(createStackOverflowError(exec));
+        return exec->exception();
+    }
+#endif
     JSValue function = object->get(exec, propertyName);
     CallData callData;
     CallType callType = function.getCallData(callData);

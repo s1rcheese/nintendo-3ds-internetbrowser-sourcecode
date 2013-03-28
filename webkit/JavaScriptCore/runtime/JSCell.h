@@ -2,6 +2,7 @@
  *  Copyright (C) 1999-2001 Harri Porten (porten@kde.org)
  *  Copyright (C) 2001 Peter Kelly (pmk@post.com)
  *  Copyright (C) 2003, 2004, 2005, 2007, 2008, 2009 Apple Inc. All rights reserved.
+ *  Copyright (c) 2011 ACCESS CO., LTD. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -93,6 +94,9 @@ namespace JSC {
         void* operator new(size_t, ExecState*);
         void* operator new(size_t, JSGlobalData*);
         void* operator new(size_t, void* placementNewDestination) { return placementNewDestination; }
+#if PLATFORM(WKC)
+        void operator delete(void*) throw() {}
+#endif
 
         virtual void markChildren(MarkStack&);
 #if ENABLE(JSC_ZOMBIES)

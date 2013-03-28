@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007 Kevin Ollivier.  All rights reserved.
- * Copyright (c) 2010 ACCESS CO., LTD. All rights reserved.
+ * Copyright (c) 2010, 2012 ACCESS CO., LTD. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -42,7 +42,7 @@ static UChar fixedChar(const UChar c)
 {
     if (Font::treatAsSpace(c)) {
         return 0x20;
-    } else if ((Font::treatAsZeroWidthSpace(c) || c==0xfeff)) {
+    } else if (c==0x200b || (Font::treatAsZeroWidthSpace(c) || c==0xfeff)) {
         return 0;
     }
     return c;

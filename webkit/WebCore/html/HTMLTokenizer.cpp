@@ -1960,13 +1960,10 @@ void HTMLTokenizer::processDoctypeToken()
 HTMLTokenizer::~HTMLTokenizer()
 {
 #if PLATFORM(WKC)
-    if (m_inWrite) {
+    if (m_inWrite && !wkcMemoryIsCrashingPeer()) {
         // An unexpected error occurred.
         // This is workaround for issue http://code.google.com/p/chromium/issues/detail?id=50250
         wkcMemoryNotifyNoMemoryPeer(0x7fffffff, false);
-
-        // Coming here means the core has been restarting and a request for restart is skipped.
-        // Any additional loading of page resources must not be done before finishing restart.
     }
 #else
     ASSERT(!m_inWrite);

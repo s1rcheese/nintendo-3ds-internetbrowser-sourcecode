@@ -1570,7 +1570,14 @@ IntRect FrameView::windowClipRect(bool clipToContents) const
 
     // Take our owner element and get the clip rect from the enclosing layer.
     Element* elt = m_frame->document()->ownerElement();
+#if 1// This is a local patch of https://bugs.webkit.org/show_bug.cgi?id=56393.
+    RenderLayer* layer = 0;
+
+    if (elt && elt->renderer())
+        layer = elt->renderer()->enclosingLayer();  
+#else
     RenderLayer* layer = elt->renderer()->enclosingLayer();
+#endif
     // FIXME: layer should never be null, but sometimes seems to be anyway.
     if (!layer)
         return clipRect;

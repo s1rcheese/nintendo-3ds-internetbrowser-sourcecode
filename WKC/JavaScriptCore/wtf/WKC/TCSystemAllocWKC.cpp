@@ -107,7 +107,6 @@ extern void* fastCalloc2(size_t,size_t);
 extern TryMallocReturnValue tryFastCalloc2(size_t,size_t);
 extern void fastFree2(void*);
 
-extern "C" bool wkcMemoryIsCrashingPeer(void);
 extern "C" void* wkcMemoryReallocPreInitPeer(void* ptr, unsigned int len);
 
 void*

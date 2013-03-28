@@ -34,14 +34,24 @@ typedef const struct OpaqueJSValue* JSValueRef;
 
 namespace WebCore {
     class File;
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+    class FileList;
+    class SerializedArray;
+    class SerializedFileList;
+    class SerializedObject;
+#else
     class SerializedObject;
     class SerializedArray;
+#endif
 
     class SharedSerializedData : public RefCounted<SharedSerializedData> {
     public:
         virtual ~SharedSerializedData() { }
         SerializedArray* asArray();
         SerializedObject* asObject();
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+        SerializedFileList* asFileList();
+#endif
     };
 
     class SerializedScriptValue;
@@ -56,7 +66,12 @@ namespace WebCore {
             ObjectType,
             ArrayType,
             StringType,
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+            FileType,
+            FileListType
+#else
             FileType
+#endif
         };
 
         SerializedType type() const { return m_type; }
@@ -81,6 +96,9 @@ namespace WebCore {
         }
         
         explicit SerializedScriptValueData(const File*);
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+        explicit SerializedScriptValueData(const FileList*);
+#endif
 
         explicit SerializedScriptValueData(JSC::JSValue value)
             : m_type(ImmediateType)
@@ -129,6 +147,15 @@ namespace WebCore {
             ASSERT(m_sharedData);
             return m_sharedData->asArray();
         }
+
+#if 1// Patch of https://bugs.webkit.org/show_bug.cgi?id=34048
+        SerializedFileList* asFileList() const
+        {
+            ASSERT(m_type == FileListType);
+            ASSERT(m_sharedData);
+            return m_sharedData->asFileList();
+        }
+#endif
 
         operator bool() const { return m_type != EmptyType; }
 

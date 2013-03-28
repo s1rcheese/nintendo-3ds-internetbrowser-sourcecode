@@ -46,7 +46,7 @@ extern "C" void peerDebugPrintf(const char* in_format, ...);
 FormDataStream::~FormDataStream()
 {
     if (m_file)
-        fclose(m_file);
+        wkcFileFClosePeer(m_file);
 }
 
 size_t FormDataStream::read(void* ptr, size_t blockSize, size_t numberOfBlocks)
