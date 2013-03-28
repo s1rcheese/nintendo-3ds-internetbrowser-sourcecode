@@ -1,0 +1,115 @@
+/**
+ * (C) 1999-2003 Lars Knoll (knoll@kde.org)
+ * Copyright (C) 2004, 2006 Apple Computer, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+#include "config.h"
+#include "StyleSheet.h"
+
+#include "MediaList.h"
+
+namespace WebCore {
+
+#if 1
+// modified at webkit.org trunk r53607 and r54645
+StyleSheet::StyleSheet(StyleSheet* parentSheet, const String& originalURL, const KURL& finalURL)
+#else
+StyleSheet::StyleSheet(StyleSheet* parentSheet, const String& href)
+#endif
+    : StyleList(parentSheet)
+    , m_parentNode(0)
+#if 1
+    // modified at webkit.org trunk r53607 and r54645
+    , m_originalURL(originalURL)
+    , m_finalURL(finalURL)
+#else
+    , m_strHref(href)
+#endif
+    , m_disabled(false)
+{
+}
+
+
+#if 1
+// modified at webkit.org trunk r53607 and r54645
+StyleSheet::StyleSheet(Node* parentNode, const String& originalURL, const KURL& finalURL)
+#else
+StyleSheet::StyleSheet(Node* parentNode, const String& href)
+#endif
+    : StyleList(0)
+    , m_parentNode(parentNode)
+#if 1
+    // modified at webkit.org trunk r53607 and r54645
+    , m_originalURL(originalURL)
+    , m_finalURL(finalURL)
+#else
+    , m_strHref(href)
+#endif
+    , m_disabled(false)
+{
+}
+
+#if 1
+// modified at webkit.org trunk r53607 and r54645
+StyleSheet::StyleSheet(StyleBase* owner, const String& originalURL, const KURL& finalURL)
+#else
+StyleSheet::StyleSheet(StyleBase* owner, const String& href)
+#endif
+    : StyleList(owner)
+    , m_parentNode(0)
+#if 1
+    // modified at webkit.org trunk r53607 and r54645
+    , m_originalURL(originalURL)
+    , m_finalURL(finalURL)
+#else
+    , m_strHref(href)
+#endif
+    , m_disabled(false)
+{
+}
+
+StyleSheet::~StyleSheet()
+{
+    if (m_media)
+        m_media->setParent(0);
+}
+
+StyleSheet* StyleSheet::parentStyleSheet() const
+{
+    return (parent() && parent()->isStyleSheet()) ? static_cast<StyleSheet*>(parent()) : 0;
+}
+
+void StyleSheet::setMedia(PassRefPtr<MediaList> media)
+{
+    if (m_media)
+        m_media->setParent(0);
+
+    m_media = media;
+    m_media->setParent(this);
+}
+
+KURL StyleSheet::completeURL(const String& url) const
+{
+    // Always return a null URL when passed a null string.
+    // FIXME: Should we change the KURL constructor to have this behavior?
+    // See also Document::completeURL(const String&)
+    if (url.isNull())
+        return KURL();
+    return KURL(baseURL(), url);
+}
+
+}
