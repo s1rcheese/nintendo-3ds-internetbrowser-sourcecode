@@ -842,12 +842,7 @@ void RenderTableCell::paintBackgroundsBehindCell(PaintInfo& paintInfo, int tx, i
             paintInfo.context->save();
             paintInfo.context->clip(clipRect);
         }
-#if 1
-        // modified at webkit.org trunk r53291
-        paintFillLayers(paintInfo, c, bgLayer, tx, ty, w, h, CompositeSourceOver, backgroundObject);
-#else
         paintFillLayers(paintInfo, c, bgLayer, tx, ty, w, h);
-#endif
         if (shouldClip)
             paintInfo.context->restore();
     }
