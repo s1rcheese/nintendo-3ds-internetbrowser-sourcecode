@@ -1,4 +1,4 @@
-### Internet Browser for Nintendo 3DS
+# Internet Browser for Nintendo 3DS
 
 The Internet Browser includes open source software licensed under the terms of the GNU library General Public License 2.0 or GNU Lesser General Public license 2.1 (collectively "the OSS Licenses"). In compliance with the OSS Licenses, we are making the source code of the open source software available to you.
 
